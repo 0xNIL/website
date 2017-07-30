@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-docker build -t portraits .
+docker build -t 0xnil .
