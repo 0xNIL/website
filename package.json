@@ -1,0 +1,40 @@
+{
+  "name": "0xNIL-web",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node .",
+    "lint": "eslint -c .eslintrc 'src/**/*.js' 'test/**/*.js'",
+    "test": "export NODE_ENV=test && istanbul cover ./node_modules/.bin/_mocha test/unit/**/*.js test/unit/*.js",
+    "posttest": "istanbul check-coverage --statements 85 --branches 85 --functions 85 --lines 85"
+  },
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "body-parser": "~1.17.1",
+    "cookie-parser": "~1.4.3",
+    "cron": "^1.2.1",
+    "debug": "~2.6.3",
+    "express": "~4.15.2",
+    "fs-extra": "^4.0.1",
+    "install": "^0.10.1",
+    "log": "^1.4.0",
+    "moment-timezone": "^0.5.13",
+    "morgan": "~1.8.1",
+    "npm": "^5.3.0",
+    "pug": "~2.0.0-beta11",
+    "redis": "^2.7.1",
+    "rotating-file-stream": "^1.2.2",
+    "say": "^0.11.0",
+    "serve-favicon": "~2.4.2",
+    "superagent": "^3.5.2"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "chai": "^3.4.1",
+    "eslint": "^1.10.3",
+    "istanbul": "^0.4.5",
+    "mocha": "^2.3.4",
+    "sinon": "^2.4.1",
+    "supertest": "^3.0.0"
+  }
+}
