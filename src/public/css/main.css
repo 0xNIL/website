@@ -6,8 +6,7 @@ body {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #0d1727;
-    background-image: url('../img/background.png');
+    background-color: #f0f0f0;
 }
 
 #particle-canvas {
