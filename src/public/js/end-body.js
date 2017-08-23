@@ -1,5 +1,5 @@
 var options = {
-  particleColor: '#248',
+  particleColor: '#ffffff',
   background: './img/background.png',
   interactive: true,
   speed: 'low',
