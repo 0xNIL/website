@@ -149,13 +149,13 @@ body {
 
 }
 
-.footerLinks img {
-    display: none;
-}
+/*.footerLinks img {*/
+    /*display: none;*/
+/*}*/
 
-.footerLinks a {
-    display: block;
-}
+/*.footerLinks a {*/
+    /*display: block;*/
+/*}*/
 
 @media screen and (min-width: 40.0rem) {
 
@@ -173,13 +173,13 @@ body {
         width:140px !important;height:140px !important;
     }
 
-    .footerLinks img {
-        display: inline;
-    }
+    /*.footerLinks img {*/
+        /*display: inline;*/
+    /*}*/
 
-    .footerLinks a {
-        display: inline;
-    }
+    /*.footerLinks a {*/
+        /*display: inline;*/
+    /*}*/
 
     .titlet, .subtitle {
         font-size: 2.8rem;
