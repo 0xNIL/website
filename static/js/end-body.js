@@ -1,6 +1,6 @@
 var options = {
-  particleColor: '#ddd',
-  background: './img/background.png',
+  particleColor: '#bbeeff',
+  background: './img/bgwhite.png',
   interactive: true,
   speed: 'low',
   density: 'low'

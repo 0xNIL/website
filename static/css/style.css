@@ -153,6 +153,13 @@ body {
     margin:0 8px 0;
 }
 
+
+/*#particle-canvas {*/
+    /*display: none;*/
+/*}*/
+
+
+
 @media screen and (min-width: 40.0rem) {
 
     .bordered {
@@ -179,6 +186,12 @@ body {
         background-color: #0a234b;
         position:fixed;
     }
+
+    /*#particle-canvas {*/
+        /*width: 100%;*/
+        /*height: 100%;*/
+        /*display:block;*/
+    /*}*/
 
 }
 
