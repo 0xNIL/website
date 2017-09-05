@@ -60,10 +60,6 @@ body {
     font-size: 4rem;
 }
 
-.titlet {
-    font-size: 2.8rem;
-}
-
 .azure {
     background-color: azure;
 }
@@ -75,6 +71,8 @@ body {
 
 .darkblue {
     background-color: #0a234b;
+    background-image: url("../img/dark-background.png");
+    background-repeat: repeat;
     color: white;
 }
 
@@ -111,7 +109,7 @@ body {
 
 .paddedTop {
     padding-top: 24px;
-    padding-bottom: 8px;
+    padding-bottom: 16px;
 }
 
 .bigger {
@@ -131,13 +129,17 @@ body {
     background-repeat: repeat;
 }
 
-.bitPadded {
-    padding-left:8px;
-    padding-right:8px;
-}
+/*.bitPadded {*/
+    /*padding-left:8px;*/
+    /*padding-right:8px;*/
+/*}*/
 
 .bitPadded p {
     color:#0c438B;
+}
+
+.bitPadded, .bitPadded2 {
+    padding:16px !important;
 }
 
 .rounded {
@@ -181,6 +183,11 @@ body {
     .footerLinks a {
         display: inline;
     }
+
+    .titlet {
+        font-size: 2.8rem;
+    }
+
 
 
 }
