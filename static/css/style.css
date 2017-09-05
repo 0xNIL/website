@@ -27,7 +27,7 @@ body {
 /*}*/
 
 .logo {
-    padding: 20px 0 0;
+    width:100px !important;height:100px !important;
 }
 
 #zero {
@@ -150,7 +150,16 @@ body {
 
 }
 
+.footerLinks img {
+    display: none;
+}
+
+.footerLinks a {
+    display: block;
+}
+
 @media screen and (min-width: 40.0rem) {
+
     .bordered {
         border-left: 1px solid #54f9ff;
         border-right: 1px solid #54f9ff;
@@ -160,6 +169,20 @@ body {
         border-bottom: none;
 
     }
+
+    .logo {
+        width:140px !important;height:140px !important;
+    }
+
+    .footerLinks img {
+        display: inline;
+    }
+
+    .footerLinks a {
+        display: inline;
+    }
+
+
 }
 
 a {
@@ -168,10 +191,6 @@ a {
 
 .borderLeft {
     border-left-color: #54f9ff;
-}
-
-.borderLeft2 {
-    border-left: 2px dashed #54f9ff;
 }
 
 .bgwhite {
