@@ -10,12 +10,6 @@ var fs = require('./lib/fs')
 
 var app = express();
 
-// view engine setup
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'pug');
-
-// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
-
 var logDirectory = '/var/log/0xNIL'
 fs.ensureDirSync(logDirectory)
 var accessLogStream = rfs('access.log', {
