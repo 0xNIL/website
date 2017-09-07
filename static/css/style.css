@@ -223,3 +223,20 @@ a {
 .bottom0 {
     margin-bottom: 0 !important;
 }
+
+.errorMessage, .message {
+    background-color: white;
+    border-radius: 6px;
+    padding: 12px;
+    font-family: Lato;
+    font-size: 100%;
+    margin: 10px 0 20px;
+}
+
+.errorMessage {
+    color: crimson;
+}
+
+.tinyLogo {
+    width: 28px;
+}
