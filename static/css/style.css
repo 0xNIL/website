@@ -5,11 +5,9 @@ body {
     margin: 0;
     padding: 0;
     background-color: #fff;
-    color: #0A234B;
+    color: #0c438B;
     font-family: 'Rajdhani';
 }
-
-
 
 #particle-canvas {
     width: 100%;
@@ -27,7 +25,8 @@ body {
 /*}*/
 
 .logo {
-    width:100px !important;height:100px !important;
+    width: 100px !important;
+    height: 100px !important;
 }
 
 #zero {
@@ -37,15 +36,17 @@ body {
 .rajdhani {
     font-family: 'Rajdhani';
 }
+
 .lato {
     font-family: 'Lato';
 }
+
 .noto {
     font-family: 'Noto Serif';
 }
 
 .fredoka {
-    font-family:'Fredoka One';
+    font-family: 'Fredoka One';
 }
 
 .cabin {
@@ -85,16 +86,17 @@ body {
     font-weight: bold;
 }
 
-
 .button-black {
     background-color: #0a234b;
     border-color: #0a234b;
 }
+
 .button-black.button-clear,
 .button-black.button-outline {
     background-color: transparent;
     color: #0a234b;
 }
+
 .button-black.button-clear {
     border-color: transparent;
 }
@@ -106,7 +108,7 @@ body {
 
 .paddedTop {
     padding-top: 24px;
-    padding-bottom: 16px;
+    padding-bottom: 4px;
 }
 
 .bigger {
@@ -115,6 +117,14 @@ body {
 
 .smaller {
     font-size: 90%;
+}
+
+.smaller2 {
+    font-size: 80%;
+}
+
+.padded64 {
+    padding-top: 64px;
 }
 
 .centered {
@@ -127,16 +137,16 @@ body {
 }
 
 /*.bitPadded {*/
-    /*padding-left:8px;*/
-    /*padding-right:8px;*/
+/*padding-left:8px;*/
+/*padding-right:8px;*/
 /*}*/
 
 .bitPadded p {
-    color:#0c438B;
+    color: #0c438B;
 }
 
 .bitPadded, .bitPadded2 {
-    padding:16px !important;
+    padding: 16px !important;
 }
 
 .rounded {
@@ -150,15 +160,12 @@ body {
 }
 
 .spaced {
-    margin:0 8px 0;
+    margin: 0 8px 0;
 }
 
-
 /*#particle-canvas {*/
-    /*display: none;*/
+/*display: none;*/
 /*}*/
-
-
 
 @media screen and (min-width: 40.0rem) {
 
@@ -173,7 +180,8 @@ body {
     }
 
     .logo {
-        width:140px !important;height:140px !important;
+        width: 140px !important;
+        height: 140px !important;
     }
 
     .titlet, .subtitle {
@@ -181,16 +189,16 @@ body {
     }
 
     .ttop {
-        width:100%;
-        height:3px;
+        width: 100%;
+        height: 3px;
         background-color: #0a234b;
-        position:fixed;
+        position: fixed;
     }
 
     /*#particle-canvas {*/
-        /*width: 100%;*/
-        /*height: 100%;*/
-        /*display:block;*/
+    /*width: 100%;*/
+    /*height: 100%;*/
+    /*display:block;*/
     /*}*/
 
 }
@@ -239,4 +247,5 @@ a {
 
 .tinyLogo {
     width: 28px;
+    margin-bottom: 8px;
 }
