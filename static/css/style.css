@@ -137,7 +137,7 @@ body {
     /*color: #0c438B;*/
 /*}*/
 
-.bitPadded, .bitPadded2 {
+.bitPadded, .bitPadded2, .bitPadded3 {
     padding: 16px !important;
 }
 
@@ -152,9 +152,13 @@ body {
 }
 
 .spaced {
-    margin: 0 8px 0;
+    margin: 12px 0 24px;
+    border: 1px solid #00b0d0;
 }
 
+.spaced2 {
+    margin: 0 12px;
+}
 /*#particle-canvas {*/
 /*display: none;*/
 /*}*/
@@ -185,6 +189,18 @@ body {
 
     .bitPadded, .bitPadded2 {
         padding: 46px 16px !important;
+    }
+
+    .bitPadded3 {
+        padding: 8px 16px 46px !important;
+    }
+
+    .bitPaddedTop {
+        padding: 36px 16px 0px !important;
+    }
+
+    .bitPaddedBottom {
+        padding: 0px 16px 46px !important;
     }
 
     #particle-canvas {
@@ -385,4 +401,8 @@ a {
     padding: 24px 32px;
     margin-bottom: 64px;
     background-color: white;
+}
+
+.bw {
+    border: 1px solid white;
 }
