@@ -5,7 +5,8 @@ body {
     margin: 0;
     padding: 0;
     background-color: #fff;
-    color: #0c438B;
+    color: #0A234B;
+    /*color: #0c438B;*/
     font-family: 'Rajdhani';
 }
 
@@ -132,9 +133,9 @@ body {
 /*padding-right:8px;*/
 /*}*/
 
-.bitPadded p {
-    color: #0c438B;
-}
+/*.bitPadded p {*/
+    /*color: #0c438B;*/
+/*}*/
 
 .bitPadded, .bitPadded2 {
     padding: 16px !important;
