@@ -15,4 +15,3 @@ coverage
 /log
 *.lock
 *.env
-bundle.min.js

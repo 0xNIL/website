@@ -30,6 +30,14 @@ const accessLogStream = rfs('access.log', {
 app.use(morgan('combined', {stream: accessLogStream}))
 
 app.use(cookieParser())
+
+app.get('/debug-only.html', function (req, res, next) {
+  if (process.env.DEBUG_MODE) {
+    res.contentType('html')
+    res.send(fs.readFileSync(path.resolve(__dirname, '../static/debug-only.html'), 'utf-8'))
+  } else res.sendStatus(403)
+})
+
 app.use(express.static(path.resolve(__dirname, '../static')))
 
 // app.use('/', index)

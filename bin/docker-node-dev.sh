@@ -6,7 +6,6 @@ source bin/.default.env && docker run -it --rm \
   -p 9092:9092 \
   -v $PWD:/usr/src/app \
   -v $PWD/log:/var/log/0xNIL \
-  -e NO_REPLY_PWD="$NO_REPLY_PWD" \
   -e MAILCHIMP_APIKEY="$MAILCHIMP_APIKEY" \
   -e MAILCHIMP_LISTID="$MAILCHIMP_LISTID" \
   -e VIRTUAL_HOST=felice0 \
