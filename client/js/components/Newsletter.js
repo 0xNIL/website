@@ -89,18 +89,16 @@ class Newsletter extends React.Component {
         <form onSubmit={this.none}>
           <fieldset>
             <div className="row">
-              <div className="column lato whiteshadow">
+              <div className="column lato whiteshadow centered">
                 <div style={{margin: '10px'}}>
                   Subscribe to the 0xNIL newsletter
                 </div>
               </div>
             </div>
             <div className="row">
-              <div className="column"><input type="text" placeholder="Your email" value={this.state.value}
-                                             onChange={this.handleChange} className="bgwhite"/>
-              </div>
-              <div className="column">
-                <button className="button-black" onClick={this.handleSubmit}>Subscribe to updates</button>
+              <div className="column centered"><input type="text" placeholder="Your email" value={this.state.value}
+                                             onChange={this.handleChange} className="bgwhite" style={{width:'30rem', marginRight: 4}}/>
+                <button className="button-black" onClick={this.handleSubmit} style={{marginLeft: 4}}>Subscribe to updates</button>
               </div>
             </div>
           </fieldset>
