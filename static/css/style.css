@@ -79,10 +79,6 @@ body {
     color: white;
 }
 
-.night {
-    color: #0a234b;
-    font-weight: bold;
-}
 
 .button-black {
     background-color: #0a234b;
@@ -342,6 +338,10 @@ a {
 
 .darkblue .bitPadded p, .darkblue a {
     color: white;
+}
+
+.darkblue a:hover {
+    color: #54f9ff;
 }
 
 .whiteshadow {
