@@ -9,6 +9,6 @@ dev = dev
     .replace(RegExp('id="particle" integrity=""'), `id="particle" integrity="sha256-${process.env.PARTICLE}"`)
     .replace(RegExp('id="bundle" integrity=""'), `id="bundle" integrity="sha256-${process.env.BUNDLE}"`)
 
-fs.writeFileSync(path.resolve(__dirname, '../static/index2.html'), dev)
+fs.writeFileSync(path.resolve(__dirname, '../static/index.html'), dev)
 
 
