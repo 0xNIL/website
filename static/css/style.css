@@ -110,7 +110,7 @@ body {
 }
 
 .bigger {
-    font-size: 120%;
+    font-size: 120% !important;
 }
 
 .smaller {
@@ -340,7 +340,7 @@ a {
     background-color: #fff !important;
 }
 
-.darkblue .bitPadded p {
+.darkblue .bitPadded p, .darkblue a {
     color: white;
 }
 
