@@ -18,7 +18,8 @@ class Mailchimp {
         .then(() => {
           return Promise.resolve({
             success: true,
-            message: 'Thanks. An email has been sent to your address with further instructions.'
+            message: 'Subscription confirmed. Thanks.'
+                //'Thanks. An email has been sent to your address with further instructions.'
           })
         })
         .catch(err => {
