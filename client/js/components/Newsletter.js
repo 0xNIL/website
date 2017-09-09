@@ -39,8 +39,6 @@ class Newsletter extends React.Component {
   }
 
   afterOpenModal() {
-    // references are now sync'd and can be accessed.
-    this.subtitle.style.color = '#f00';
   }
 
   closeModal() {
@@ -92,6 +90,7 @@ class Newsletter extends React.Component {
               <div className="column lato whiteshadow centered">
                 <div style={{margin: '10px'}}>
                   Subscribe to the 0xNIL newsletter
+                  <a name="why"></a>
                 </div>
               </div>
             </div>
