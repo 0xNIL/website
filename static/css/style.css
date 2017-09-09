@@ -107,6 +107,10 @@ body {
     font-size: 120% !important;
 }
 
+.bigger110 {
+    font-size: 110% !important;
+}
+
 .smaller {
     font-size: 90%;
 }
@@ -369,6 +373,11 @@ a {
     margin-bottom: 0 !important;
 }
 
+.bottom6 {
+    margin-bottom: 6px !important;
+}
+
+
 .errorMessage, .message {
     background-color: white;
     border-radius: 6px;
@@ -405,4 +414,8 @@ a {
 
 .bw {
     border: 1px solid white;
+}
+
+.bold {
+    font-weight: bold !important;
 }
