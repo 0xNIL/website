@@ -7,7 +7,7 @@ router.post('/subscribe', jsonParser, function(req, res, next) {
 
   const email = req.body.email
 
-  mailchimp.subscribe(email, 'subscribed')
+  mailchimp.subscribe(email) //, 'subscribed')
       .then(response => {
         res.json(response)
       })

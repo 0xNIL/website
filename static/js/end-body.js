@@ -2,7 +2,7 @@ function particles() {
 
   var options = {
     particleColor: '#4df',
-    background: './img/bgwhite.png',
+    background: './img/cover.png',
     interactive: false,
     speed: 'low',
     density: 'low'
