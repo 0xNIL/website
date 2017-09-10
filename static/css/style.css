@@ -185,6 +185,14 @@ body {
     margin: 10px 0;
 }
 
+.row.mobile {
+    display: block;
+}
+
+.row.desktop {
+    display: none;
+}
+
 @media screen and (min-width: 40.0rem) {
 
     .title {
@@ -310,6 +318,15 @@ body {
         width: 40rem;
         margin: 100px 0 58px;
     }
+
+    .row.mobile {
+        display: none;
+    }
+
+    .row.desktop {
+        display: block;
+    }
+
 
     .onTitle {
         padding: 32px 0;
