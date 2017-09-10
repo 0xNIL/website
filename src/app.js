@@ -56,7 +56,7 @@ if (app.get('env') === 'development') {
     res.render('error', {
       title: 'Error',
       message: err.message,
-      error: err
+      error: process.env.DEBUG_MODE ? err : ''
     })
   })
 }
