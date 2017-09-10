@@ -221,6 +221,7 @@ body {
         width: 100%;
         z-index: 0;
         display: block;
+        height: 490px;
     }
 
     .bordered {
@@ -264,7 +265,7 @@ body {
     .menuContainer {
         width: 100%;
         border-bottom: 1px solid #f0f4f8;
-        height: 51px;
+        height: 60px;
         display: block;
         background-color: #fafbfd;
     }
@@ -315,7 +316,7 @@ body {
     }
 
     .fulllogo {
-        width: 40rem;
+        width: 32rem;
         margin: 100px 0 58px;
     }
 
