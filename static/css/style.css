@@ -127,6 +127,10 @@ body {
     text-align: center;
 }
 
+.alignedLeft {
+    text-align: left;
+}
+
 .bluebkg {
     background-image: url("../img/blue-background.png");
     background-repeat: repeat;
