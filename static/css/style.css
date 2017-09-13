@@ -215,6 +215,10 @@ body {
         padding: 0px 16px 46px !important;
     }
 
+    .lessPadded {
+        padding: 24px 0 !important;
+    }
+
     #particle-canvas {
         position: absolute;
         top: 0;
