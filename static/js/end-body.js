@@ -1,17 +1,3 @@
-function particles() {
-
-  var options = {
-    particleColor: '#4df',
-    background: './img/cover.png',
-    interactive: false,
-    speed: 'low',
-    density: 'low'
-  }
-
-  var particleCanvas = new ParticleNetwork(document.getElementById('particle-canvas'), options)
-
-}
-
 $(document).ready(function () {
   var s = $(".header")
   var pos = s.position()
@@ -24,8 +10,6 @@ $(document).ready(function () {
       s.removeClass("stick")
     }
   })
-
-  particles();
 
   if ($('.menuContainer').css('display') === 'block') {
 
@@ -40,9 +24,6 @@ $(document).ready(function () {
       orgElementTop = orgElementPos.top;
 
       if ($(window).scrollTop() >= (orgElementTop)) {
-        // scrolled past the original position; now only show the cloned, sticky element.
-
-        // Cloned element should always have same left position and width as original element.
         orgElement = $('.original');
         coordsOrgElement = orgElement.offset();
         leftOrgElement = coordsOrgElement.left;
@@ -50,7 +31,6 @@ $(document).ready(function () {
         $('.cloned').css('left', leftOrgElement + 'px').css('top', 0).css('width', widthOrgElement).show();
         $('.original').css('visibility', 'hidden');
       } else {
-        // not scrolled past the menu; only show the original menu.
         $('.cloned').hide();
         $('.original').css('visibility', 'visible');
       }

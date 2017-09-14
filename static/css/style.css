@@ -445,3 +445,8 @@ a {
 .bold {
     font-weight: bold !important;
 }
+
+.cover {
+    background-image: url(../img/cover.png);
+    background-size: cover;
+}
