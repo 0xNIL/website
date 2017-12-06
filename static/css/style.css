@@ -54,6 +54,14 @@ body {
     font-size: 3.4rem;
 }
 
+.b {
+    font-weight: bold !important;
+}
+
+li {
+    margin-left: 12px !important;
+}
+
 .title {
     font-size: 3rem;
 }
@@ -204,7 +212,7 @@ body {
     }
 
     .bitPadded, .bitPadded2 {
-        padding: 46px 16px !important;
+        padding: 24px 16px 0 !important;
     }
 
     .bitPadded3 {
@@ -354,7 +362,7 @@ body {
     }
 
     .mg44 {
-        margin-bottom: 44px !important;
+        margin-bottom: 0px !important;
     }
 
     .pb16 {
@@ -363,7 +371,7 @@ body {
 }
 
 .mg44 {
-    margin-bottom: 36px !important;
+    margin-bottom: 0px !important;
 }
 
 a {
