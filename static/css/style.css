@@ -81,8 +81,8 @@ li {
 
 .darkblue {
     background-color: #0a234b;
-    background-image: url("../img/dark-background.png");
-    background-repeat: repeat;
+    /*background-image: url("../img/dark-background.png");*/
+    /*background-repeat: repeat;*/
     color: white;
 }
 
@@ -143,6 +143,15 @@ li {
     background-image: url("../img/blue-background.png");
     background-repeat: repeat;
 }
+
+.bluebkg span {
+    /*font-size:1.2em;*/
+}
+
+.bluebkg a {
+    text-decoration: underline;
+}
+
 
 /*.bitPadded {*/
 /*padding-left:8px;*/
@@ -386,11 +395,11 @@ a {
     background-color: #fff !important;
 }
 
-.darkblue .bitPadded p, .darkblue a {
+.darkblue .bitPadded p {
     color: white;
 }
 
-.darkblue a:hover {
+.darkblue a, .darkblue a:hover {
     color: #54f9ff;
 }
 
