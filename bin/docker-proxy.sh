@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# curl https://raw.githubusercontent.com/jwilder/nginx-proxy/master/nginx.tmpl > /vol/proxy/templates/nginx.tmpl
+# curl https://raw.githubusercontent.com/jwilder/nginx-proxy/master/nginx.tmpl > /vol/etc/nginx/templates/nginx.tmpl
 
 docker stop nginx
 docker rm nginx
@@ -26,7 +26,7 @@ docker run -d \
     --name nginx-gen \
     --restart unless-stopped \
     --volumes-from nginx \
-    -v /vol/proxy/templates/nginx.tmpl:/etc/docker-gen/templates/nginx.tmpl:ro \
+    -v /vol/etc/nginx/templates/nginx.tmpl:/etc/docker-gen/templates/nginx.tmpl:ro \
     -v /var/run/docker.sock:/tmp/docker.sock:ro \
     --label com.github.jrcs.letsencrypt_nginx_proxy_companion.docker_gen \
     jwilder/docker-gen \
@@ -36,6 +36,6 @@ docker run -d \
     --name nginx-letsencrypt \
     --restart unless-stopped \
     --volumes-from nginx \
-    -v /vol/proxy/certs:/etc/nginx/certs:rw \
+    -v /vol/etc/nginx/certs:/etc/nginx/certs:rw \
     -v /var/run/docker.sock:/var/run/docker.sock:ro \
     jrcs/letsencrypt-nginx-proxy-companion
