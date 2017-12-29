@@ -18,7 +18,7 @@ docker run -d \
   -v /etc/nginx/conf.d  \
   -v /etc/nginx/vhost.d \
   -v /usr/share/nginx/html \
-  -v /vol/proxy/certs:/etc/nginx/certs:ro \
+  -v /vol/etc/nginx/certs:/etc/nginx/certs:ro \
   --label com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy \
   nginx
 
