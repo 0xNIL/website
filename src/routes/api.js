@@ -1,23 +1,12 @@
 const express = require('express')
 const router = express.Router()
 const jsonParser = require('body-parser').json()
-const mailchimp = require('../lib/Mailchimp')
+const provider = require('../lib/Provider')
 
-router.post('/subscribe', jsonParser, function(req, res, next) {
+router.post('/stats', jsonParser, function(req, res, next) {
 
-  const email = req.body.email
-
-  mailchimp.subscribe(email, 'subscribed')
-      .then(response => {
-        res.json(response)
-      })
-      .catch(() => {
-        res.json({
-          success: false,
-          message: 'Something went wrong. Try again later, please.'
-        })
-      })
-
+  const network = req.body.network
+  provider.stats(res, network)
 
 })
 

@@ -1,9 +1,26 @@
 import 'babel-polyfill'
 import React from 'react'
 import ReactDOM from "react-dom"
-import Newsletter from './components/Newsletter'
+import IFO from './components/IFO'
+import IFOButton from './components/IFOButton'
 
-ReactDOM.render(
-    <Newsletter/>,
-    document.getElementById('newsletter')
-)
+if (document.getElementById('IFO')) {
+  ReactDOM.render(
+  <IFO/>,
+  document.getElementById('IFO')
+  )
+}
+
+if (document.getElementById('IFOButton0')) {
+  ReactDOM.render(
+  <IFOButton value="Participate to the First Round of the Initial Free Offering"/>,
+  document.getElementById('IFOButton0')
+  )
+}
+
+if (document.getElementById('IFOButton')) {
+  ReactDOM.render(
+  <IFOButton value="Participate to the First Round"/>,
+  document.getElementById('IFOButton')
+  )
+}
