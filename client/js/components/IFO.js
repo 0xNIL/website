@@ -1012,7 +1012,7 @@ class IFO extends React.Component {
           notStartedYet =
           <div className="rounded darkblue">Your attention, please!<br/>The distribution hasn't been initialized yet. It
             will be
-            on January 27th. Don't send anything before that the IFO is started.</div>
+            on Monday, January 29th, at 9am PST. Don't send anything before that the IFO is started.</div>
         }
       }
 
