@@ -983,18 +983,22 @@ class IFO extends React.Component {
 
   checkAnotherWallet(cancel) {
     if (this.state.customAddress) {
-      this.state.NILInstance.balanceOf(this.state.customAddress, (err, result) => {
-        if (result != null) {
-          isDefaultAccount = this.state.customAddress == web3.eth.defaultAccount
-          this.setState({
-            currentBalance: result.c[0] / 1e9,
-            accountAddress: this.state.customAddress,
-            checkingAnother: false,
-            customAddress: null,
-            isDefaultAccount
-          })
-        }
-      })
+      if (web3.utils.isAddress(this.state.customAddress)) {
+        this.state.NILInstance.balanceOf(this.state.customAddress, (err, result) => {
+          if (result != null) {
+            isDefaultAccount = this.state.customAddress == web3.eth.defaultAccount
+            this.setState({
+              currentBalance: result.c[0] / 1e9,
+              accountAddress: this.state.customAddress,
+              checkingAnother: false,
+              customAddress: null,
+              isDefaultAccount
+            })
+          }
+        })
+      } else {
+        this.state.addressError = 'The address above is not valid.'
+      }
     } else if(cancel) {
       this.setState({checkingAnother: false})
     } else {
@@ -1003,7 +1007,7 @@ class IFO extends React.Component {
   }
 
   addressChange(event) {
-    this.setState({customAddress: event.target.value})
+    this.setState({customAddress: event.target.value, addressError: null})
   }
 
   render() {
@@ -1226,6 +1230,7 @@ class IFO extends React.Component {
       if (this.state.checkingAnother) {
         checkAnother = <div className="pt16">Wallet address
           <input type="text" onChange={this.addressChange}/>
+          { this.state.addressError ? <div class="error">{this.state.addressError}</div> : ''}
           <button className="button-black" onClick={this.checkAnotherWallet}>Check</button> <button className="button-black button-outline" onClick={function () { self.checkAnotherWallet(true) }}>Cancel</button>
 
         </div>
