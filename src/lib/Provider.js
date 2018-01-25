@@ -865,7 +865,7 @@ class Provider {
     if (!this.preEndBlock) {
     this.IFOInstance.preEndBlock((err, result) => {
       if (result != null) {
-        this.preEndBlock = result.c[0] - 140
+        this.preEndBlock = result.c[0]
       }
       gets++
       this.response(res, gets)
