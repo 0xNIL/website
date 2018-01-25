@@ -10,17 +10,17 @@ if (document.getElementById('IFO')) {
   document.getElementById('IFO')
   )
 }
-//
-// if (document.getElementById('IFOButton0')) {
-//   ReactDOM.render(
-//   <IFOButton value="Participate to the First Round of the Initial Free Offering"/>,
-//   document.getElementById('IFOButton0')
-//   )
-// }
-//
-// if (document.getElementById('IFOButton')) {
-//   ReactDOM.render(
-//   <IFOButton value="Participate to the First Round"/>,
-//   document.getElementById('IFOButton')
-//   )
-// }
+
+if (document.getElementById('IFOButton0')) {
+  ReactDOM.render(
+  <IFOButton value="Participate to the First Round of the Initial Free Offering"/>,
+  document.getElementById('IFOButton0')
+  )
+}
+
+if (document.getElementById('IFOButton')) {
+  ReactDOM.render(
+  <IFOButton value="Participate to the First Round"/>,
+  document.getElementById('IFOButton')
+  )
+}

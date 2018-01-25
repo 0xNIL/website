@@ -846,7 +846,7 @@ class IFO extends React.Component {
       let self = this
       timerId = setInterval(function () {
         self.fetchFromApi()
-      }, 15e3)
+      }, 60e3)
     }
   }
 
@@ -1065,7 +1065,7 @@ class IFO extends React.Component {
             </div>
             <div>
 
-              I have read everything on the <a href="https://0xnil.org" target="_blank">land page</a>, I also have
+              I have read everything on the <a href="https://0xnil.org" target="_blank">home page of the official website</a>, I also have
               read the <a href="http://bit.ly/0xNIL1" target="_blank">intro to the project</a>, and I understand what
               this experiment is about.
 
