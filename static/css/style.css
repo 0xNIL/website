@@ -73,6 +73,7 @@ li {
     background-color: azure;
 }
 
+
 .level3 {
     background-color: #54f9ff;
     color: white;
@@ -174,6 +175,10 @@ li {
     padding: 16px !important;
 }
 
+.red {
+    color: #dd0044;
+}
+
 .rounded {
     border-radius: 8px;
     padding: 8px 12px;
@@ -225,6 +230,9 @@ li {
 
 .row.mobile {
     display: block;
+}
+.mt8 {
+    margin-top: 8px;
 }
 
 .mtp16 {
@@ -404,8 +412,9 @@ li {
     margin-bottom: 0px !important;
 }
 
-a {
+a, .link {
     color: #0070a0;
+    cursor: pointer;
 }
 
 .borderLeft {
@@ -471,14 +480,25 @@ a.dark {
     padding-top: 16px;
 }
 
+.tacContainer {
+    color: #0070a0;
+    font-size: 1.4rem;
+    background: #f0f8f8;
+    padding: 20px 40px 40px;
+}
+
 .tac div {
-    padding-top: 8px;
-    padding-bottom: 8px;
+    padding-top: 4px;
+    padding-bottom: 4px;
 }
 
 .tac div input {
     margin-right: 8px;
     margin-bottom: 0;
+}
+
+.tac a {
+    color: #0a234b;
 }
 
 .ifoname {

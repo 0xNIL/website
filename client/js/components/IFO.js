@@ -793,12 +793,16 @@ class IFO extends React.Component {
       preEndBlock: 0,
       lastBlock: 0,
       connected: 0,
-      network: null
+      network: null,
+      accountAddress: '',
+      currentBalance: -1
     }
 
     this.updateState = this.updateState.bind(this)
     this.acceptTac = this.acceptTac.bind(this)
     this.fetchFromApi = this.fetchFromApi.bind(this)
+    this.checkAnotherWallet = this.checkAnotherWallet.bind(this)
+    this.addressChange = this.addressChange.bind(this)
 
     if (typeof web3 != 'undefined') {
       console.log('Using web3 detected from external source like Metamask')
@@ -943,6 +947,22 @@ class IFO extends React.Component {
         }
       })
     }
+
+    if (web3.eth.defaultAccount) {
+      this.state.NILInstance.balanceOf(web3.eth.defaultAccount, (err, result) => {
+        if (result != null) {
+          this.setState({
+            currentBalance: result.c[0] / 1e9,
+            accountAddress: web3.eth.defaultAccount,
+            isDefaultAccount: true
+          })
+        }
+      })
+    } else {
+      this.setState({
+        currentBalance: -1
+      })
+    }
   }
 
   acceptTac(event) {
@@ -951,6 +971,29 @@ class IFO extends React.Component {
     if (event.target.checked) {
       Scroll.animateScroll.scrollToTop()
     }
+  }
+
+  checkAnotherWallet() {
+    if (this.state.customAddress) {
+      this.state.NILInstance.balanceOf(this.state.customAddress, (err, result) => {
+        if (result != null) {
+          isDefaultAccount = this.state.customAddress == web3.eth.defaultAccount
+          this.setState({
+            currentBalance: result.c[0] / 1e9,
+            accountAddress: this.state.customAddress,
+            checkingAnother: false,
+            customAddress: null,
+            isDefaultAccount
+          })
+        }
+      })
+    } else {
+      this.setState({checkingAnother: true})
+    }
+  }
+
+  addressChange(event) {
+    this.setState({customAddress: event.target.value})
   }
 
   render() {
@@ -1011,7 +1054,8 @@ class IFO extends React.Component {
         } else {
           notStartedYet =
           <div className="rounded darkblue">Your attention, please!<br/>The distribution hasn't been initialized yet. It
-            will be initialized on Sunday 28th. Don't send anything before the 9am PST of Monday, January 29th, because your transaction would fail and you would consume gas for nothing.</div>
+            will be initialized on Sunday 28th. Don't send anything before the 9am PST of Monday, January 29th, because
+            your transaction would fail and you would consume gas for nothing.</div>
         }
       }
 
@@ -1045,11 +1089,13 @@ class IFO extends React.Component {
     }
 
     if (!address) {
-      instructionsContent = <div>You are not connected to the Ethereum Main Network. Please change the network in your in browser wallet (Metamask, etc.).</div>
+      instructionsContent =
+      <div>You are not connected to the Ethereum Main Network. Please change the network in your in browser wallet
+        (Metamask, etc.).</div>
     }
 
-    let tac = <div>
-      <div className={'container ' + (ls('accepted') ? 'accepted' : '')}>
+    let tac = <div style={{paddingTop: 32, paddingBottom: 32}}>
+      <div className={'container tacContainer rounded ' + (ls('accepted') ? 'accepted' : '')}>
         <div className="row padded">
           <div className="column column-100 b bigger lato">Terms and Conditions</div>
         </div>
@@ -1064,15 +1110,23 @@ class IFO extends React.Component {
             </div>
             <div>
 
-              I have read everything on the <a href="https://0xnil.org" target="_blank">home page of the official website</a>, I also have
+              I have read everything on the <a href="https://0xnil.org" target="_blank">home page of the official
+              website</a>, I also have
               read the <a href="http://bit.ly/0xNIL1" target="_blank">intro to the project</a>, and I understand what
               this experiment is about.
 
+            </div>
+            <div>
               I agree that:
             </div>
             <div>
 
               The price of a NIL is set at zero, implying that there is no intrinsic value in the token.
+            </div>
+            <div>
+              In addition
+              there has been no exchange of goods or services in return for the NIL tokens and no value has been
+              provided in exchange for the NIL tokens received.
             </div>
             <div>
               Any time that I will send 0 ether to the IFO address, during this first round of distribution, I will
@@ -1081,8 +1135,9 @@ class IFO extends React.Component {
               nothing.
             </div>
             <div>
-              I will receive the NILs as soon as the transaction is confirmed. However, the NILs will be transferable
-              only at the end of the second round of distribution, which will be towards the end of the winter.
+              I will receive the NILs as soon as the transaction is confirmed. However, the NIL will be transferable
+              only at the end of the second round of distribution which is anticipated to take place towards the end of
+              February 2018.
             </div>
             <div>
               The goal of the experiment is to understand what happens when a token without a product behind it and
@@ -1093,12 +1148,14 @@ class IFO extends React.Component {
             </div>
             <div>
               Specifically, I agree that this is not an investment and I am just participating in an experiment,
-              understanding that nobody knows what will become of the NIL in the future.
+              understanding that nobody knows what will be of the NIL in the future.
             </div>
             <div>
-              For any token which will be distributed, another token will be minted for the project itself and the
+              I understand that for any token which will be distributed, another token will be minted for the project
+              itself and the
               team. It is so for two reasons: (1) to simulate as best as possible the typical behavior of an Initial
-              Coin Offering; (2) to allow the project to evolve using the NIL in future projects.
+              Coin Offering; (2) to allow the project to evolve using the NIL in future projects. This means that the
+              total supply at the end of the first round will be two times the tokens distributed to the participants.
             </div>
             <div>
               I can't request NIL from an exchange or from any wallet which is unable to receive generic ERC20 tokens.
@@ -1119,10 +1176,13 @@ class IFO extends React.Component {
               value an illegal action.
             </div>
             <div>
+              Each jurisdiction has separate rules concerning taxation of crypto currency transactions. While the price
+              is set at 0 ETH for the NIL tokens with a 0 value, we are not and have not provided any opinion on the tax
+              consequences of such an exchange. Please consult your tax advisor.
+            </div>
+            <div>
               <input type="checkbox" onChange={this.acceptTac}
-                     checked={ls('accepted') ? true : false}
-
-              /> I have read carefully and I agree with everything above.
+                     checked={ls('accepted') ? true : false}/> I have read carefully and I agree with everything above.
 
             </div>
 
@@ -1140,6 +1200,40 @@ class IFO extends React.Component {
       {instructionsContent}
     </div> : ''
 
+
+    let currentBalance
+    if (this.state.connected == 1) {
+
+      let checkAnother = <div onClick={this.checkAnotherWallet} className="link pt16">Check another wallet</div>
+
+      if (this.state.checkingAnother) {
+        checkAnother = <div className="pt16">Wallet address
+          <input type="text" onChange={this.addressChange}/>
+          <button className="button-black" onClick={this.checkAnotherWallet}>Check</button>
+
+        </div>
+      }
+
+      // 0x6958De0121F4452FD10f43d2084f851019453794
+
+      if (this.state.currentBalance != -1) {
+        currentBalance = <div className="rounded bgwhite lato" style={{fontSize: '40%'}}>There
+          are <b>{formatNumber(this.state.currentBalance)}</b> confirmed NIL in the wallet
+          at <b>{this.state.accountAddress}</b>
+          {
+            this.state.currentBalance == 30000
+            ?
+            <div className="red mt8">If this is yours, be careful, you reached the cap. Don't request more NIL from this
+              address, the request would fail.</div>
+            // : ifoStarted && !this.state.ended && this.state.isDefaultAccount
+            // ? <div className="pt10"><button className="button-black">Request 5,000 NIL now</button></div>
+            : ''
+          }
+          {checkAnother}
+        </div>
+      }
+    }
+
     return (
     <div>
       <div className="cover pt22 pb16">
@@ -1150,6 +1244,9 @@ class IFO extends React.Component {
 
                 <div
                 className="rounded lato status">{!this.state.network ? 'UNKNOWN STATUS (WRONG NETWORK)' : ifoStarted && !this.state.ended ? 'THE DISTRIBUTION IS ACTIVE' : this.state.ended ? 'THE DISTRIBUTION IS ENDED' : 'THE DISTRIBUTION IS NOT STARTED YET'}</div>
+
+                {currentBalance}
+
 
               </div>
 
