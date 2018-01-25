@@ -1011,8 +1011,7 @@ class IFO extends React.Component {
         } else {
           notStartedYet =
           <div className="rounded darkblue">Your attention, please!<br/>The distribution hasn't been initialized yet. It
-            will be
-            on Monday, January 29th, at 9am PST. Don't send anything before that the IFO is started.</div>
+            will be initialized on Sunday 28th. Don't send anything before the 9am PST of Monday, January 29th, because your transaction would fail and you would consume gas for nothing.</div>
         }
       }
 
