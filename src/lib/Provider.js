@@ -1,4 +1,3 @@
-/* globals Promise */
 
 const Web3 = require('web3')
 
@@ -793,7 +792,7 @@ class Provider {
   }
 
   response(res, gets) {
-    if (gets == 6) {
+    if (gets === 6) {
       res.json({
         success: true,
         stats: {
@@ -812,7 +811,7 @@ class Provider {
 
     let gets = 0
 
-    if (network == '4') {
+    if (network === '4') {
       this.IFOInstance = this.IFOContract.at(rinkebyIFOAddress)
       this.NILInstance = this.NILContract.at(rinkebyNILAddress)
     } else {

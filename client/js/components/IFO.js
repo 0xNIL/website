@@ -787,6 +787,7 @@ class IFO extends React.Component {
     super(props)
     this.state = {
       totalSupply: 0,
+      tokenSupply: 0,
       totalParticipants: 0,
       read: false,
       preStartBlock: 0,
@@ -908,6 +909,13 @@ class IFO extends React.Component {
         })
       }
     })
+    this.state.IFOInstance.tokenSupply((err, result) => {
+      if (result != null) {
+        this.setState({
+          tokenSupply: result.c[0]
+        })
+      }
+    })
     this.state.NILInstance.totalSupply((err, result) => {
       if (result != null) {
         let ts = result.c[0] / 1e9
@@ -1010,7 +1018,12 @@ class IFO extends React.Component {
     let left = '-'
 
     if (this.state.totalSupply && this.state.totalParticipants) {
-      averageParticipation = this.state.totalSupply / this.state.totalParticipants
+      let supply = this.state.totalSupply
+      if (this.state.totalSupply == this.state.tokenSupply) {
+        supply /= 2;
+      }
+
+      averageParticipation = supply / this.state.totalParticipants
     }
 
     if (ifoStarted) {
