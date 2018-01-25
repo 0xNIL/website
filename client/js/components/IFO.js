@@ -1149,7 +1149,9 @@ class IFO extends React.Component {
               <div className=" darkblue bord rounded ifoname">Initial Free Offering — First Round<br/>
 
                 <div
-                className="rounded lato status">{!this.state.network ? 'UNKNOWN STATUS (WRONG NETWORK)' : ifoStarted && !this.state.ended ? 'THE DISTRIBUTION IS ACTIVE' : this.state.ended ? 'THE DISTRIBUTION IS ENDED' : 'THE DISTRIBUTION IS NOT STARTED YET'}</div>
+                className="rounded lato status">{
+                  // !this.state.network ? 'UNKNOWN STATUS (WRONG NETWORK)' : ifoStarted && !this.state.ended ? 'THE DISTRIBUTION IS ACTIVE' : this.state.ended ? 'THE DISTRIBUTION IS ENDED' :
+                'THE DISTRIBUTION IS NOT STARTED YET'}</div>
 
               </div>
 
