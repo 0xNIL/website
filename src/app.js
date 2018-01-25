@@ -31,17 +31,30 @@ app.use(morgan('combined', {stream: accessLogStream}))
 
 app.use(cookieParser())
 
-app.get('/debug-only.html', function (req, res, next) {
-  if (process.env.DEBUG_MODE) {
+app.get('/debug-index', function (req, res, next) {
+  if (app.get('env') === 'development') {
     res.contentType('html')
-    res.send(fs.readFileSync(path.resolve(__dirname, '../static/debug-only.html'), 'utf-8'))
+    res.send(fs.readFileSync(path.resolve(__dirname, '../static/debug-index.html'), 'utf-8'))
   } else res.sendStatus(403)
 })
+
+app.get('/ifo-first-round', function (req, res, next) {
+  res.contentType('html')
+  res.send(fs.readFileSync(path.resolve(__dirname, '../static/ifo-first-round.html'), 'utf-8'))
+})
+
+app.get('/debug-ifo-first-round', function (req, res, next) {
+  if (app.get('env') === 'development') {
+    res.contentType('html')
+    res.send(fs.readFileSync(path.resolve(__dirname, '../static/debug-ifo-first-round.html'), 'utf-8'))
+  } else res.sendStatus(403)
+})
+
 
 app.use(express.static(path.resolve(__dirname, '../static')))
 
 // app.use('/', index)
-app.use('/api/v1', api)
+app.use('/api', api)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -56,7 +69,7 @@ if (app.get('env') === 'development') {
     res.render('error', {
       title: 'Error',
       message: err.message,
-      error: process.env.DEBUG_MODE ? err : ''
+      error: err
     })
   })
 }

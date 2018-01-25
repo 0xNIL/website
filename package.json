@@ -18,10 +18,12 @@
     "cross-env": "^1.0.8",
     "debug": "~2.6.3",
     "email-validator": "^1.1.1",
+    "ethjs": "^0.3.3",
     "expect": "^1.20.1",
     "express": "~4.15.2",
     "fs-extra": "^4.0.1",
     "install": "^0.10.1",
+    "local-storage": "^1.4.2",
     "log": "^1.4.0",
     "moment-timezone": "^0.5.13",
     "morgan": "~1.8.1",
@@ -33,10 +35,12 @@
     "react-addons-test-utils": "^15.1.0",
     "react-dom": "^15.1.0",
     "react-modal": "^2.3.2",
+    "react-scroll": "^1.7.6",
     "redis": "^2.7.1",
     "rotating-file-stream": "^1.2.2",
     "say": "^0.11.0",
-    "superagent": "^3.5.2"
+    "superagent": "^3.5.2",
+    "web3": "^0.20.4"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",

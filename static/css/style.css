@@ -1,6 +1,5 @@
 html,
 body {
-    height: 100%;
     width: 100%;
     margin: 0;
     padding: 0;
@@ -139,6 +138,16 @@ li {
     text-align: left;
 }
 
+.status {
+    font-size: 60%;
+    text-align: center;
+    margin: 16px 0;
+    padding: 24px;
+    width: 100%;
+    background-color: #ffc;
+    color: #0a234b;
+}
+
 .bluebkg {
     background-image: url("../img/blue-background.png");
     background-repeat: repeat;
@@ -152,14 +161,13 @@ li {
     text-decoration: underline;
 }
 
-
 /*.bitPadded {*/
 /*padding-left:8px;*/
 /*padding-right:8px;*/
 /*}*/
 
 /*.bitPadded p {*/
-    /*color: #0c438B;*/
+/*color: #0c438B;*/
 /*}*/
 
 .bitPadded, .bitPadded2, .bitPadded3 {
@@ -169,6 +177,10 @@ li {
 .rounded {
     border-radius: 8px;
     padding: 8px 12px;
+}
+
+.bord {
+    border: 1px solid;
 }
 
 .bottomBordered {
@@ -184,6 +196,7 @@ li {
 .spaced2 {
     margin: 0 12px;
 }
+
 /*#particle-canvas {*/
 /*display: none;*/
 /*}*/
@@ -201,6 +214,10 @@ li {
     display: none;
 }
 
+.container.accepted {
+    opacity: 0.5;
+}
+
 .fulllogo {
     width: 40rem;
     margin: 10px 0;
@@ -208,6 +225,11 @@ li {
 
 .row.mobile {
     display: block;
+}
+
+.mtp16 {
+    margin-top: 16px;
+    padding: 16px;
 }
 
 .row.desktop {
@@ -353,7 +375,6 @@ li {
         display: block;
     }
 
-
     .onTitle {
         padding: 32px 0;
     }
@@ -393,6 +414,11 @@ a {
 
 .bgwhite {
     background-color: #fff !important;
+    color: #0a234b !important;
+}
+
+a.dark {
+    color: #0070a0 !important;
 }
 
 .darkblue .bitPadded p {
@@ -408,6 +434,11 @@ a {
 
 }
 
+.blueshadow {
+    text-shadow: 1px 1px 1px #0a234b !important;
+
+}
+
 .leftPadding {
     padding-left: 8px;
 }
@@ -420,6 +451,41 @@ a {
     margin-bottom: 6px !important;
 }
 
+.f140 {
+    font-size: 140%;
+}
+
+.p24z {
+    padding: 24px 0;
+}
+
+.pt22 {
+    padding-top: 22px;
+}
+
+.pt10 {
+    padding-top: 10px;
+}
+
+.pt16 {
+    padding-top: 16px;
+}
+
+.tac div {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.tac div input {
+    margin-right: 8px;
+    margin-bottom: 0;
+}
+
+.ifoname {
+    font-size: 200%;
+    font-weight: bolder;
+    padding: 12px 36px;
+}
 
 .errorMessage, .message {
     background-color: white;

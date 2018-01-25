@@ -16,4 +16,5 @@ coverage
 *.lock
 *.env
 static/index.html
+static/ifo-first-round.html
 static/js/bundle.min.js

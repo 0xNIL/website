@@ -3,7 +3,7 @@
 docker stop 0xNIL-web
 docker rm 0xNIL-web
 
-source bin/.default.env && docker run -d \
+source docker/.default.env && docker run -d \
   --name 0xNIL-web \
   --link 0xNIL-redis:redis \
   -p 9092 \
