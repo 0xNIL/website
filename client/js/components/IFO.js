@@ -1086,14 +1086,14 @@ class IFO extends React.Component {
             </div>
             <div>
               The goal of the experiment is to understand what happens when a token without a product behind it and
-              with no value at all is distributed to people who request it. Aforementioned implies that this Initial
+              with no value at all is distributed to people who request it. This implies that this Initial
               Free Offering is not an opportunity for investment and there are no reasonable expectations that the
               token will be traded in the future and will acquire any value. Despite that, anyone who will receive the
               token will be free to do with the token what they like to do with it, in the spirit of the experiment.
             </div>
             <div>
               Specifically, I agree that this is not an investment and I am just participating in an experiment,
-              understanding that nobody knows what will be of the NIL in the future.
+              understanding that nobody knows what will become of the NIL in the future.
             </div>
             <div>
               For any token which will be distributed, another token will be minted for the project itself and the
@@ -1117,9 +1117,6 @@ class IFO extends React.Component {
             <div>
               I am not a citizen, or a resident, of a country which considers requesting tokens which don't have any
               value an illegal action.
-            </div>
-            <div>
-              I have read carefully, and I agree with everything above.
             </div>
             <div>
               <input type="checkbox" onChange={this.acceptTac}
