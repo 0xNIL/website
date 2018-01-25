@@ -6,6 +6,7 @@ const provider = require('../lib/Provider')
 router.post('/stats', jsonParser, function(req, res, next) {
 
   const network = req.body.network
+
   provider.stats(res, network)
 
 })

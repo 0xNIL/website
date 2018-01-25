@@ -856,7 +856,7 @@ class IFO extends React.Component {
 
   fetchFromApi() {
     let self = this
-    return fetch(window.location.origin + '/api/stats', {
+    return fetch(window.location.origin + '/api/stats?random=' + Math.random(), {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -973,7 +973,7 @@ class IFO extends React.Component {
     }
   }
 
-  checkAnotherWallet() {
+  checkAnotherWallet(cancel) {
     if (this.state.customAddress) {
       this.state.NILInstance.balanceOf(this.state.customAddress, (err, result) => {
         if (result != null) {
@@ -987,6 +987,8 @@ class IFO extends React.Component {
           })
         }
       })
+    } else if(cancel) {
+      this.setState({checkingAnother: false})
     } else {
       this.setState({checkingAnother: true})
     }
@@ -998,6 +1000,7 @@ class IFO extends React.Component {
 
   render() {
 
+    let self = this
 
     // console.log(this.state)
 
@@ -1202,6 +1205,7 @@ class IFO extends React.Component {
 
 
     let currentBalance
+
     if (this.state.connected == 1) {
 
       let checkAnother = <div onClick={this.checkAnotherWallet} className="link pt16">Check another wallet</div>
@@ -1209,7 +1213,7 @@ class IFO extends React.Component {
       if (this.state.checkingAnother) {
         checkAnother = <div className="pt16">Wallet address
           <input type="text" onChange={this.addressChange}/>
-          <button className="button-black" onClick={this.checkAnotherWallet}>Check</button>
+          <button className="button-black" onClick={this.checkAnotherWallet}>Check</button> <button className="button-black button-outline" onClick={function () { self.checkAnotherWallet(true) }}>Cancel</button>
 
         </div>
       }

@@ -812,12 +812,12 @@ class Provider {
 
     let gets = 0
 
-    if (network == '1') {
-      this.IFOInstance = this.IFOContract.at(IFOAddress)
-      this.NILInstance = this.NILContract.at(NILAddress)
-    } else if (network == '4') {
+    if (network == '4') {
       this.IFOInstance = this.IFOContract.at(rinkebyIFOAddress)
       this.NILInstance = this.NILContract.at(rinkebyNILAddress)
+    } else {
+      this.IFOInstance = this.IFOContract.at(IFOAddress)
+      this.NILInstance = this.NILContract.at(NILAddress)
     }
 
     this.NILInstance.totalSupply((err, result) => {
@@ -863,13 +863,13 @@ class Provider {
       this.response(res, gets)
     }
     if (!this.preEndBlock) {
-    this.IFOInstance.preEndBlock((err, result) => {
-      if (result != null) {
-        this.preEndBlock = result.c[0]
-      }
-      gets++
-      this.response(res, gets)
-    })
+      this.IFOInstance.preEndBlock((err, result) => {
+        if (result != null) {
+          this.preEndBlock = result.c[0]
+        }
+        gets++
+        this.response(res, gets)
+      })
     } else {
       gets++
       this.response(res, gets)

@@ -10,6 +10,7 @@ source docker/.default.env && docker run -d \
   --restart unless-stopped \
   -v $PWD:/usr/src/app \
   -v /vol/log/0xNIL:/var/log/0xNIL \
+  -e NODE_ENV=production \
   -e VIRTUAL_HOST=oxnil.org,www.oxnil.org,0xnil.org,www.0xnil.org,oxnil.com,www.oxnil.com \
   -e LETSENCRYPT_HOST=0xnil.org,www.0xnil.org \
   -e LETSENCRYPT_EMAIL=info@0xnil.org \
