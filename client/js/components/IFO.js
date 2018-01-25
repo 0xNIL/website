@@ -804,6 +804,7 @@ class IFO extends React.Component {
     this.fetchFromApi = this.fetchFromApi.bind(this)
     this.checkAnotherWallet = this.checkAnotherWallet.bind(this)
     this.addressChange = this.addressChange.bind(this)
+    this.cancelCheck = this.cancelCheck.bind(this)
 
     if (typeof web3 != 'undefined') {
       console.log('Using web3 detected from external source like Metamask')
@@ -961,8 +962,7 @@ class IFO extends React.Component {
         if (result != null) {
           this.setState({
             currentBalance: result.c[0] / 1e9,
-            accountAddress: web3.eth.defaultAccount,
-            isDefaultAccount: true
+            accountAddress: web3.eth.defaultAccount
           })
         }
       })
@@ -981,29 +981,29 @@ class IFO extends React.Component {
     }
   }
 
-  checkAnotherWallet(cancel) {
+  checkAnotherWallet() {
     if (this.state.customAddress) {
-      if (web3.utils.isAddress(this.state.customAddress)) {
+      if (web3.isAddress(this.state.customAddress)) {
         this.state.NILInstance.balanceOf(this.state.customAddress, (err, result) => {
           if (result != null) {
-            isDefaultAccount = this.state.customAddress == web3.eth.defaultAccount
             this.setState({
               currentBalance: result.c[0] / 1e9,
               accountAddress: this.state.customAddress,
               checkingAnother: false,
-              customAddress: null,
-              isDefaultAccount
+              customAddress: null
             })
           }
         })
       } else {
-        this.state.addressError = 'The address above is not valid.'
+        this.setState({addressError: 'The address above is not valid.'})
       }
-    } else if(cancel) {
-      this.setState({checkingAnother: false})
     } else {
       this.setState({checkingAnother: true})
     }
+  }
+
+  cancelCheck() {
+    this.setState({checkingAnother: false, addressError: null, customAddress: null})
   }
 
   addressChange(event) {
@@ -1024,7 +1024,7 @@ class IFO extends React.Component {
     if (this.state.totalSupply && this.state.totalParticipants) {
       let supply = this.state.totalSupply
       if (this.state.totalSupply == this.state.tokenSupply) {
-        supply /= 2;
+        supply /= 2
       }
 
       averageParticipation = supply / this.state.totalParticipants
@@ -1230,8 +1230,12 @@ class IFO extends React.Component {
       if (this.state.checkingAnother) {
         checkAnother = <div className="pt16">Wallet address
           <input type="text" onChange={this.addressChange}/>
-          { this.state.addressError ? <div class="error">{this.state.addressError}</div> : ''}
-          <button className="button-black" onClick={this.checkAnotherWallet}>Check</button> <button className="button-black button-outline" onClick={function () { self.checkAnotherWallet(true) }}>Cancel</button>
+          {this.state.addressError ? <div className="red" style={{
+            marginTop: -13,
+            marginBottom: 8
+          }}>{this.state.addressError}</div> : ''}
+          <button className="button-black" onClick={this.checkAnotherWallet}>Check</button>
+          <button style={{marginLeft: 8}} className="button-black button-outline" onClick={this.cancelCheck}>Cancel</button>
 
         </div>
       }
@@ -1247,8 +1251,6 @@ class IFO extends React.Component {
             ?
             <div className="red mt8">If this is yours, be careful, you reached the cap. Don't request more NIL from this
               address, the request would fail.</div>
-            // : ifoStarted && !this.state.ended && this.state.isDefaultAccount
-            // ? <div className="pt10"><button className="button-black">Request 5,000 NIL now</button></div>
             : ''
           }
           {checkAnother}
