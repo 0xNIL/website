@@ -1,7 +1,7 @@
 const assert = require('assert')
 const express = require('express')
 
-const mailchimp = require('../../src/lib/Mailchimp')
+// const mailchimp = require('../../src/lib/Mailchimp')
 const db = require('../../src/lib/db')
 const api = require('../../src/routes/api')
 
@@ -34,14 +34,14 @@ describe('api', function () {
   //   })
   // })
 
-  describe('POST /subscribe', function () {
-
-    it('should subscribe the first time', function () {
-
-      return mailchimp.subscribe(db.getRandomString(8) + '@sameteam.co', 'subscribed')
-          .then(response => {
-            assert(response.success)
-          })
-    })
-  })
+  // describe('POST /subscribe', function () {
+  //
+  //   it('should subscribe the first time', function () {
+  //
+  //     return mailchimp.subscribe(db.getRandomString(8) + '@sameteam.co', 'subscribed')
+  //         .then(response => {
+  //           assert(response.success)
+  //         })
+  //   })
+  // })
 })

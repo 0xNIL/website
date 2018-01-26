@@ -1090,7 +1090,7 @@ class IFO extends React.Component {
         <div>after the IFO has started and before it ends.
         </div>
         <div className="pt10">
-          Send 0 ether only from wallets that can receive ERC20 tokens (like MyEtherWallet, Metamask, Parity, etc.).
+          Send 0 ether only from wallets that can receive ERC20 tokens (like <a className="dark" href="https://myetherwallet.com" target="_blank">MyEtherWallet</a>, <a className="dark" href="https://metamask.io" target="_blank">Metamask</a>, <a className="dark" href="https://parity.io" target="_blank">Parity</a>, etc.).
         </div>
         <div className="pt10">To receive more NIL, you can repeat the operation, until you reach the cap of 30,000 NIL
           per wallet.
@@ -1260,6 +1260,11 @@ class IFO extends React.Component {
       }
     }
 
+    let infoUpdate = this.state.connected === 1
+    ? <span>The data are updated every 15 seconds, i.e. as soon as a new block in mined. A more frequent update is useless. Please, don't refresh the page.</span>
+    : <span>The data are updated every 60 seconds and cached. Please, don't refresh the page, it's useless. To have updates every 15 seconds, use an in-browser wallet, like <a href="https://metamask.io" target="_blank">Metamask</a>.</span>
+
+
     return (
     <div>
       <div className="cover pt22 pb16">
@@ -1272,7 +1277,6 @@ class IFO extends React.Component {
                 className="rounded lato status">{!this.state.network ? 'UNKNOWN STATUS (WRONG NETWORK)' : ifoStarted && !this.state.ended ? 'THE DISTRIBUTION IS ACTIVE' : this.state.ended ? 'THE DISTRIBUTION IS OVER' : 'THE DISTRIBUTION HASN\'T STARTED YET'}</div>
 
                 {currentBalance}
-
 
               </div>
 
@@ -1290,8 +1294,17 @@ class IFO extends React.Component {
             <Stat label="Ending block" value={this.state.preEndBlock}/>
             <Stat label="Blocks before end" value={left}/>
           </div>
+          <div className="row">
+            <div className="column lato" style={{color:'white', fontSize: '1.3rem', textAlign: 'center'}}>
+              <div className="rounded darkblue">
+                {infoUpdate}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+
+
       {tac}
     </div>
     )

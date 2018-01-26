@@ -16,13 +16,13 @@ class Db {
     }
   }
 
-  now() {
-    return Math.floor(new Date() / 1000)
-  }
-
-  getRandomString(length) {
-    return crypto.randomBytes(2 * length).toString('base64').replace(/\/|\+/g, '0').toUpperCase().substring(0, length)
-  }
+  // now() {
+  //   return Math.floor(new Date() / 1000)
+  // }
+  //
+  // getRandomString(length) {
+  //   return crypto.randomBytes(2 * length).toString('base64').replace(/\/|\+/g, '0').toUpperCase().substring(0, length)
+  // }
 
 }
 

@@ -31,19 +31,19 @@ app.use(morgan('combined', {stream: accessLogStream}))
 
 app.use(cookieParser())
 
-app.get('/debug-index', function (req, res, next) {
+app.get('/ifo-first-round', function (req, res, next) {
+  res.contentType('html')
+  res.send(fs.readFileSync(path.resolve(__dirname, '../static/ifo-first-round.html'), 'utf-8'))
+})
+
+app.get('/debug-index.html', function (req, res, next) {
   if (app.get('env') === 'development') {
     res.contentType('html')
     res.send(fs.readFileSync(path.resolve(__dirname, '../static/debug-index.html'), 'utf-8'))
   } else res.sendStatus(403)
 })
 
-app.get('/ifo-first-round', function (req, res, next) {
-  res.contentType('html')
-  res.send(fs.readFileSync(path.resolve(__dirname, '../static/ifo-first-round.html'), 'utf-8'))
-})
-
-app.get('/debug-ifo-first-round', function (req, res, next) {
+app.get('/debug-ifo-first-round.html', function (req, res, next) {
   if (app.get('env') === 'development') {
     res.contentType('html')
     res.send(fs.readFileSync(path.resolve(__dirname, '../static/debug-ifo-first-round.html'), 'utf-8'))

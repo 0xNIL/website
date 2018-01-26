@@ -1,4 +1,4 @@
-
+const db = require('./db').redis
 const Web3 = require('web3')
 
 const web3 = new Web3(new Web3.providers.HttpProvider('https://rinkeby.infura.io/' + process.env.INFURA_ID))
@@ -783,96 +783,112 @@ class Provider {
     this.IFOContract = web3.eth.contract(IFOabi)
     this.NILContract = web3.eth.contract(NILabi)
 
-    this.totalSupply = 0
-    this.totalParticipants = 0
-    this.preStartBlock = 0
-    this.preEndBlock = 0
-    this.lastBlock = 0
-    this.tokenSupply = 0
+    this.data = {
+      totalSupply: 0,
+      totalParticipants: 0,
+      preStartBlock: 0,
+      preEndBlock: 0,
+      lastBlock: 0,
+      tokenSupply: 0
+    }
+
   }
 
-  response(res, gets) {
+  response(res, gets, dontCacheIt) {
+
     if (gets === 6) {
       res.json({
         success: true,
-        stats: {
-          totalSupply: this.totalSupply,
-          totalParticipants: this.totalParticipants,
-          preStartBlock: this.preStartBlock,
-          preEndBlock: this.preEndBlock,
-          lastBlock: this.lastBlock,
-          tokenSupply: this.tokenSupply
-        }
+        stats: this.data
       })
+      if (!dontCacheIt) {
+        this.data.now = Date.now()
+        db.set('cached-stats', JSON.stringify(this.data))
+      }
     }
   }
 
   stats(res, network) {
+    const self = this
 
-    let gets = 0
-
-    if (network === '4') {
-      this.IFOInstance = this.IFOContract.at(rinkebyIFOAddress)
-      this.NILInstance = this.NILContract.at(rinkebyNILAddress)
-    } else {
-      this.IFOInstance = this.IFOContract.at(IFOAddress)
-      this.NILInstance = this.NILContract.at(NILAddress)
-    }
-
-    this.NILInstance.totalSupply((err, result) => {
-      if (result != null) {
-        this.totalSupply = result.c[0] / 1e9
+    db.get('cached-stats', (err, val) => {
+      if (val) {
+        try {
+          val = JSON.parse(val)
+          if (Date.now() - val.now < 3e4) {
+            this.data = val
+            self.response(res, 6, true)
+            return
+          }
+        } catch(e) {}
       }
-      gets++
-      this.response(res, gets)
-    })
 
-    this.IFOInstance.totalParticipants((err, result) => {
-      if (result != null) {
-        this.totalParticipants = result.c[0]
-      }
-      gets++
-      this.response(res, gets)
-    })
-    this.IFOInstance.tokenSupply((err, result) => {
-      if (result != null) {
-        this.tokenSupply = result.c[0]
-      }
-      gets++
-      this.response(res, gets)
-    })
-    web3.eth.getBlockNumber((err, result) => {
-      if (result != null) {
-        this.lastBlock = result
-      }
-      gets++
-      this.response(res, gets)
-    })
+      let gets = 0
 
-    if (!this.preStartBlock) {
-      this.IFOInstance.preStartBlock((err, result) => {
+      if (network === '4') {
+        this.IFOInstance = this.IFOContract.at(rinkebyIFOAddress)
+        this.NILInstance = this.NILContract.at(rinkebyNILAddress)
+      } else {
+        this.IFOInstance = this.IFOContract.at(IFOAddress)
+        this.NILInstance = this.NILContract.at(NILAddress)
+      }
+
+      this.NILInstance.totalSupply((err, result) => {
         if (result != null) {
-          this.preStartBlock = result.c[0]
+          this.data.totalSupply = result.c[0] / 1e9
         }
         gets++
         this.response(res, gets)
       })
-    } else {
-      gets++
-      this.response(res, gets)
-    }
-    if (!this.preEndBlock) {
-      this.IFOInstance.preEndBlock((err, result) => {
+
+      this.IFOInstance.totalParticipants((err, result) => {
         if (result != null) {
-          this.preEndBlock = result.c[0]
+          this.data.totalParticipants = result.c[0]
         }
         gets++
         this.response(res, gets)
       })
-    } else {
-      gets++
-      this.response(res, gets)
-    }
+      this.IFOInstance.tokenSupply((err, result) => {
+        if (result != null) {
+          this.data.tokenSupply = result.c[0]
+        }
+        gets++
+        this.response(res, gets)
+      })
+      web3.eth.getBlockNumber((err, result) => {
+        if (result != null) {
+          this.data.lastBlock = result
+        }
+        gets++
+        this.response(res, gets)
+      })
+
+      if (!this.preStartBlock) {
+        this.IFOInstance.preStartBlock((err, result) => {
+          if (result != null) {
+            this.data.preStartBlock = result.c[0]
+          }
+          gets++
+          this.response(res, gets)
+        })
+      } else {
+        gets++
+        this.response(res, gets)
+      }
+      if (!this.preEndBlock) {
+        this.IFOInstance.preEndBlock((err, result) => {
+          if (result != null) {
+            this.data.preEndBlock = result.c[0]
+          }
+          gets++
+          this.response(res, gets)
+        })
+      } else {
+        gets++
+        this.response(res, gets)
+      }
+    })
+
   }
 }
 
