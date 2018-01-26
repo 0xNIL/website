@@ -1272,7 +1272,7 @@ class IFO extends React.Component {
     }
 
     let infoUpdate = this.state.connected === 1
-    ? <span>The data are updated every 15 seconds, i.e. as soon as a new block in mined. A more frequent update is useless. Please, don't refresh the page.</span>
+    ? <span>The data are updated every 15 seconds, i.e. as soon as a new block in mined. More frequent updates are useless. Please, don't refresh the page.</span>
     : <span>The data are updated every 60 seconds and cached. Please, don't refresh the page, it's useless. To have updates every 15 seconds, use an in-browser wallet, like <a
     href="https://metamask.io" target="_blank">Metamask</a>.</span>
 
