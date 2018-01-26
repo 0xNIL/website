@@ -1223,7 +1223,7 @@ class IFO extends React.Component {
 
     let currentBalance
 
-    if (this.state.connected == 1) {
+    if (this.state.connected == 1 && ifoStarted) {
 
       let checkAnother = <div onClick={this.checkAnotherWallet} className="link pt16">Check another wallet</div>
 
