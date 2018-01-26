@@ -1089,7 +1089,9 @@ class IFO extends React.Component {
         </div>
         <div>after than the IFO is started and before than it ends.
         </div>
-
+        <div className="pt10">
+          Send 0 ether only from wallets that can receive ERC20 tokens (like MyEtherWallet, Metamask, Parity, etc.).
+        </div>
         <div className="pt10">To receive more NIL, you can repeat the operation, until you reach the cap of 30,000 NIL
           per wallet.
         </div>
