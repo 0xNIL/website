@@ -1087,7 +1087,7 @@ class IFO extends React.Component {
         <div className="b">
           {address}
         </div>
-        <div>after than the IFO is started and before than it ends.
+        <div>after the IFO has started and before it ends.
         </div>
         <div className="pt10">
           Send 0 ether only from wallets that can receive ERC20 tokens (like MyEtherWallet, Metamask, Parity, etc.).
@@ -1269,7 +1269,7 @@ class IFO extends React.Component {
               <div className=" darkblue bord rounded ifoname">Initial Free Offering — First Round<br/>
 
                 <div
-                className="rounded lato status">{!this.state.network ? 'UNKNOWN STATUS (WRONG NETWORK)' : ifoStarted && !this.state.ended ? 'THE DISTRIBUTION IS ACTIVE' : this.state.ended ? 'THE DISTRIBUTION IS ENDED' : 'THE DISTRIBUTION IS NOT STARTED YET'}</div>
+                className="rounded lato status">{!this.state.network ? 'UNKNOWN STATUS (WRONG NETWORK)' : ifoStarted && !this.state.ended ? 'THE DISTRIBUTION IS ACTIVE' : this.state.ended ? 'THE DISTRIBUTION IS OVER' : 'THE DISTRIBUTION HASN\'T STARTED YET'}</div>
 
                 {currentBalance}
 
