@@ -796,7 +796,8 @@ class IFO extends React.Component {
       connected: 0,
       network: null,
       accountAddress: '',
-      currentBalance: -1
+      currentBalance: -1,
+      refreshedAfter: 15e3
     }
 
     this.updateState = this.updateState.bind(this)
@@ -836,6 +837,7 @@ class IFO extends React.Component {
         }
         if (this.state.network) {
           this.updateState()
+          this.setState({refreshedAfter: 15e3})
           timerId = setInterval(this.updateState, 15e3)
         }
       })
@@ -853,6 +855,7 @@ class IFO extends React.Component {
       timerId = setInterval(function () {
         self.fetchFromApi()
       }, 60e3)
+      this.setState({refreshedAfter: 60e3})
     }
   }
 
@@ -883,11 +886,13 @@ class IFO extends React.Component {
 
       if (this.state.ended) {
         clearTimeout(timerId)
+        this.setState({refreshedAfter: -1})
       } else if (stats.preStartBlock == 0) {
         clearTimeout(timerId)
         timerId = setInterval(function () {
           self.fetchFromApi()
         }, 300e3)
+        this.setState({refreshedAfter: 300e3})
       }
 
     })
@@ -1090,7 +1095,12 @@ class IFO extends React.Component {
         <div>after the IFO has started and before it ends.
         </div>
         <div className="pt10">
-          Send 0 ether only from wallets that can receive ERC20 tokens (like <a className="dark" href="https://myetherwallet.com" target="_blank">MyEtherWallet</a>, <a className="dark" href="https://metamask.io" target="_blank">Metamask</a>, <a className="dark" href="https://parity.io" target="_blank">Parity</a>, etc.).
+          Send 0 ether only from wallets that can receive ERC20 tokens (like <a className="dark"
+                                                                                href="https://myetherwallet.com"
+                                                                                target="_blank">MyEtherWallet</a>, <a
+        className="dark" href="https://metamask.io" target="_blank">Metamask</a>, <a className="dark"
+                                                                                     href="https://parity.io"
+                                                                                     target="_blank">Parity</a>, etc.).
         </div>
         <div className="pt10">To receive more NIL, you can repeat the operation, until you reach the cap of 30,000 NIL
           per wallet.
@@ -1237,7 +1247,8 @@ class IFO extends React.Component {
             marginBottom: 8
           }}>{this.state.addressError}</div> : ''}
           <button className="button-black" onClick={this.checkAnotherWallet}>Check</button>
-          <button style={{marginLeft: 8}} className="button-black button-outline" onClick={this.cancelCheck}>Cancel</button>
+          <button style={{marginLeft: 8}} className="button-black button-outline" onClick={this.cancelCheck}>Cancel
+          </button>
 
         </div>
       }
@@ -1262,7 +1273,8 @@ class IFO extends React.Component {
 
     let infoUpdate = this.state.connected === 1
     ? <span>The data are updated every 15 seconds, i.e. as soon as a new block in mined. A more frequent update is useless. Please, don't refresh the page.</span>
-    : <span>The data are updated every 60 seconds and cached. Please, don't refresh the page, it's useless. To have updates every 15 seconds, use an in-browser wallet, like <a href="https://metamask.io" target="_blank">Metamask</a>.</span>
+    : <span>The data are updated every 60 seconds and cached. Please, don't refresh the page, it's useless. To have updates every 15 seconds, use an in-browser wallet, like <a
+    href="https://metamask.io" target="_blank">Metamask</a>.</span>
 
 
     return (
@@ -1294,13 +1306,15 @@ class IFO extends React.Component {
             <Stat label="Ending block" value={this.state.preEndBlock}/>
             <Stat label="Blocks before end" value={left}/>
           </div>
-          <div className="row">
-            <div className="column lato" style={{color:'white', fontSize: '1.3rem', textAlign: 'center'}}>
+          {this.state.refreshedAfter > 0 && this.state.refreshedAfter <= 60e3
+          ? <div className="row">
+            <div className="column lato" style={{color: 'white', fontSize: '1.3rem', textAlign: 'center'}}>
               <div className="rounded darkblue">
                 {infoUpdate}
               </div>
             </div>
           </div>
+          : ''}
         </div>
       </div>
 
