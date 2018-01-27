@@ -1319,9 +1319,7 @@ class IFO extends React.Component {
 
                 <div
                 className="rounded lato status">{!this.state.network ? 'UNKNOWN STATUS (WRONG NETWORK)' : this.ifoStarted && !this.state.ended ? 'THE DISTRIBUTION IS ACTIVE' : this.state.ended ? 'THE DISTRIBUTION IS OVER' : 'THE DISTRIBUTION HASN\'T STARTED YET'}</div>
-
                 {currentBalance}
-
               </div>
 
             </div>
