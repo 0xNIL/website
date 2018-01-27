@@ -4,7 +4,6 @@ import {formatNumber} from '../utils'
 
 import React from 'react'
 import * as Scroll from 'react-scroll'
-import Web3 from 'web3'
 import Stat from './Stat'
 
 
@@ -810,6 +809,7 @@ class IFO extends React.Component {
     this.checkAnotherWallet = this.checkAnotherWallet.bind(this)
     this.addressChange = this.addressChange.bind(this)
     this.cancelCheck = this.cancelCheck.bind(this)
+    this.runServerApi = this.runServerApi.bind(this)
 
     if (typeof web3 != 'undefined') {
       console.log('Using web3 detected from external source like Metamask')
@@ -841,7 +841,7 @@ class IFO extends React.Component {
         }
         if (this.state.network) {
           this.updateState()
-          this.setState({refreshedAfter: 15e3})
+          this.state.refreshedAfter = 15e3
           timerId = setInterval(this.updateState, 15e3)
           this.runServerApi()
         }
@@ -865,7 +865,10 @@ class IFO extends React.Component {
     timerId2 = setInterval(function () {
       self.fetchFromApi()
     }, 60e3)
-    this.setState({refreshedAfter: 60e3})
+    if (this.state.connected != 1) {
+      this.state.refreshedAfter = 60e3
+      this.state.connected = 2
+    }
   }
 
   fetchFromApi() {
@@ -891,7 +894,6 @@ class IFO extends React.Component {
           preStartBlock: stats.preStartBlock,
           preEndBlock: stats.preEndBlock,
           lastBlock: stats.lastBlock,
-          connected: 2,
           ended: stats.preEndBlock && stats.lastBlock > stats.preEndBlock ? true : false
         })
       }
@@ -1314,7 +1316,7 @@ class IFO extends React.Component {
       <div className="cover pt22 pb16">
         <div className="container">
           <div className="row">
-            <div className="column pt16"><a href="/"><img src="img/logoH.png" style={{width: 300, border: 0}}/></a>
+            <div className="column pt16"><a href="/"><img src="/img/logoH.png" style={{width: 300, border: 0}}/></a>
               <div className=" darkblue bord rounded ifoname">Initial Free Offering — First Round<br/>
 
                 <div
