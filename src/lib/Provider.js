@@ -1,5 +1,8 @@
 const db = require('./db').redis
+const _ = require('lodash')
 const Web3 = require('web3')
+const request = require('superagent')
+const gasUrl = 'https://ethgasstation.info/json/ethgasAPI.json'
 
 const web3 = new Web3(new Web3.providers.HttpProvider('https://rinkeby.infura.io/' + process.env.INFURA_ID))
 
@@ -784,32 +787,35 @@ class Provider {
     this.NILContract = web3.eth.contract(NILabi)
 
     this.data = {
-      totalSupply: 0,
-      totalParticipants: 0,
-      preStartBlock: 0,
-      preEndBlock: 0,
-      lastBlock: 0,
-      tokenSupply: 0
+      // totalSupply: 0,
+      // totalParticipants: 0,
+      // preStartBlock: 0,
+      // preEndBlock: 0,
+      // lastBlock: 0,
+      // tokenSupply: 0,
+      // safeLow: 0,
+      // block_time: 0,
+      // safeLowWait: 0
     }
 
   }
 
-  response(res, gets, dontCacheIt) {
+  stats(res, network, usingMetamask) {
 
-    if (gets === 6) {
-      res.json({
-        success: true,
-        stats: this.data
-      })
-      if (!dontCacheIt) {
-        this.data.now = Date.now()
-        db.set('cached-stats', JSON.stringify(this.data))
+    let gets = 0
+
+    const response = dontCacheIt => {
+      if (gets === 7) {
+        res.json({
+          success: true,
+          stats: this.data
+        })
+        if (!dontCacheIt) {
+          this.data.now = Date.now()
+          db.set('cached-stats', JSON.stringify(this.data))
+        }
       }
     }
-  }
-
-  stats(res, network) {
-    const self = this
 
     db.get('cached-stats', (err, val) => {
       if (val) {
@@ -817,13 +823,13 @@ class Provider {
           val = JSON.parse(val)
           if (Date.now() - val.now < 3e4) {
             this.data = val
-            self.response(res, 6, true)
+            gets = 7
+            response(true)
             return
           }
-        } catch(e) {}
+        } catch (e) {
+        }
       }
-
-      let gets = 0
 
       if (network === '4') {
         this.IFOInstance = this.IFOContract.at(rinkebyIFOAddress)
@@ -833,63 +839,92 @@ class Provider {
         this.NILInstance = this.NILContract.at(NILAddress)
       }
 
-      this.NILInstance.totalSupply((err, result) => {
-        if (result != null) {
-          this.data.totalSupply = result.c[0] / 1e9
-        }
-        gets++
-        this.response(res, gets)
-      })
+      if (!usingMetamask) {
 
-      this.IFOInstance.totalParticipants((err, result) => {
-        if (result != null) {
-          this.data.totalParticipants = result.c[0]
-        }
-        gets++
-        this.response(res, gets)
-      })
-      this.IFOInstance.tokenSupply((err, result) => {
-        if (result != null) {
-          this.data.tokenSupply = result.c[0]
-        }
-        gets++
-        this.response(res, gets)
-      })
-      web3.eth.getBlockNumber((err, result) => {
-        if (result != null) {
-          this.data.lastBlock = result
-        }
-        gets++
-        this.response(res, gets)
-      })
-
-      if (!this.preStartBlock) {
-        this.IFOInstance.preStartBlock((err, result) => {
+        this.NILInstance.totalSupply((err, result) => {
           if (result != null) {
-            this.data.preStartBlock = result.c[0]
+            this.data.totalSupply = result.c[0] / 1e9
           }
           gets++
-          this.response(res, gets)
+          response()
         })
-      } else {
-        gets++
-        this.response(res, gets)
-      }
-      if (!this.preEndBlock) {
-        this.IFOInstance.preEndBlock((err, result) => {
+
+        this.IFOInstance.totalParticipants((err, result) => {
           if (result != null) {
-            this.data.preEndBlock = result.c[0]
+            this.data.totalParticipants = result.c[0]
           }
           gets++
-          this.response(res, gets)
+          response()
         })
+        this.IFOInstance.tokenSupply((err, result) => {
+          if (result != null) {
+            this.data.tokenSupply = result.c[0]
+          }
+          gets++
+          response()
+        })
+        web3.eth.getBlockNumber((err, result) => {
+          if (result != null) {
+            this.data.lastBlock = result
+          }
+          gets++
+          response()
+        })
+
+        if (!this.preStartBlock) {
+          this.IFOInstance.preStartBlock((err, result) => {
+            if (result != null) {
+              this.data.preStartBlock = result.c[0]
+            }
+            gets++
+            response()
+          })
+        } else {
+          gets++
+          response()
+        }
+        if (!this.preEndBlock) {
+          this.IFOInstance.preEndBlock((err, result) => {
+            if (result != null) {
+              this.data.preEndBlock = result.c[0]
+            }
+            gets++
+            response()
+          })
+        } else {
+          gets++
+          response()
+        }
       } else {
-        gets++
-        this.response(res, gets)
+        gets = 6
       }
+
+
+
+      request
+      .get(gasUrl)
+      .set('Accept', 'application/json')
+      .then(res2 => {
+        gets++
+        try {
+          this.data.safeLow = res2.body.safeLow
+          this.data.block_time = res2.body.block_time
+          this.data.safeLowWait = res2.body.safeLowWait
+        } catch (e) {
+          this.data.safeLow = 0
+          this.data.block_time = 0
+          this.data.safeLowWait = 0
+        }
+        response()
+      })
+      .catch(function (err) {
+        console.error('Http error.', err)
+      })
+
     })
 
   }
+
 }
 
 module.exports = new Provider

@@ -24,6 +24,7 @@
     "fs-extra": "^4.0.1",
     "install": "^0.10.1",
     "local-storage": "^1.4.2",
+    "lodash": "^4.17.4",
     "log": "^1.4.0",
     "moment-timezone": "^0.5.13",
     "morgan": "~1.8.1",

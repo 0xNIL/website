@@ -4,21 +4,19 @@ const jsonParser = require('body-parser').json()
 const provider = require('../lib/Provider')
 
 
-router.post('/stats', jsonParser, function(req, res, next) {
+router.post('/stats', jsonParser, function (req, res, next) {
 
   const network = req.body.network
-  provider.stats(res, network)
+  const usingMetamask = req.body.usingMetamask
+  provider.stats(res, network, usingMetamask)
 })
 
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
 
-        res.json({
-          success: true,
-          message: 'Welcome!'
-        })
-
+  res.json({
+    success: true,
+    message: 'Welcome!'
+  })
 })
-
-
 
 module.exports = router

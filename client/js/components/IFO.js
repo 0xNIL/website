@@ -781,6 +781,7 @@ const rinkebyIFOAddress = '0xf9c5d0fcd359445d5ced6631a9eaa1bc7b02d2a3'
 const rinkebyNILAddress = '0xc411fa23fa0bd24753f137afd6e83da9de1dbb76'
 
 let timerId
+let timerId2
 
 class IFO extends React.Component {
   constructor(props) {
@@ -797,7 +798,10 @@ class IFO extends React.Component {
       network: null,
       accountAddress: '',
       currentBalance: -1,
-      refreshedAfter: 15e3
+      refreshedAfter: 15e3,
+      safeLow: 0,
+      block_time: 0,
+      safeLowWait: 0
     }
 
     this.updateState = this.updateState.bind(this)
@@ -839,24 +843,29 @@ class IFO extends React.Component {
           this.updateState()
           this.setState({refreshedAfter: 15e3})
           timerId = setInterval(this.updateState, 15e3)
+          this.runServerApi()
         }
       })
 
     } else {
 
       console.log('Using server side api')
-      if (!/0xnil\.org/i.test(window.location.hostname) && window.location.search == '?rinkeby=true') {
-        this.state.network = '4'
-      } else {
-        this.state.network = '1'
-      }
-      this.fetchFromApi()
-      let self = this
-      timerId = setInterval(function () {
-        self.fetchFromApi()
-      }, 60e3)
-      this.setState({refreshedAfter: 60e3})
+      this.runServerApi()
     }
+  }
+
+  runServerApi() {
+    if (!/0xnil\.org/i.test(window.location.hostname) && window.location.search == '?rinkeby=true') {
+      this.state.network = '4'
+    } else {
+      this.state.network = '1'
+    }
+    this.fetchFromApi()
+    let self = this
+    timerId2 = setInterval(function () {
+      self.fetchFromApi()
+    }, 60e3)
+    this.setState({refreshedAfter: 60e3})
   }
 
   fetchFromApi() {
@@ -868,40 +877,56 @@ class IFO extends React.Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        network: this.state.network
+        network: this.state.network,
+        usingMetamask: this.state.connected == 1
       }),
     })
     .then((response) => response.json())
     .then((responseJson) => {
       const stats = responseJson.stats
+      if (this.state.connected == 2) {
+        this.setState({
+          totalSupply: stats.totalSupply,
+          totalParticipants: stats.totalParticipants,
+          preStartBlock: stats.preStartBlock,
+          preEndBlock: stats.preEndBlock,
+          lastBlock: stats.lastBlock,
+          connected: 2,
+          ended: stats.preEndBlock && stats.lastBlock > stats.preEndBlock ? true : false
+        })
+      }
       this.setState({
-        totalSupply: stats.totalSupply,
-        totalParticipants: stats.totalParticipants,
-        preStartBlock: stats.preStartBlock,
-        preEndBlock: stats.preEndBlock,
-        lastBlock: stats.lastBlock,
-        connected: 2,
-        ended: stats.preEndBlock && stats.lastBlock > stats.preEndBlock ? true : false
+        safeLow: stats.safeLow,
+        block_time: stats.block_time,
+        safeLowWait: stats.safeLowWait
       })
 
       if (this.state.ended) {
-        clearTimeout(timerId)
+        this.clearTimeouts()
         this.setState({refreshedAfter: -1})
       } else if (stats.preStartBlock == 0) {
-        clearTimeout(timerId)
+        this.clearTimeouts()
         timerId = setInterval(function () {
           self.fetchFromApi()
         }, 300e3)
         this.setState({refreshedAfter: 300e3})
       }
-
     })
     .catch((error) => {
       console.error(error)
     })
-
   }
 
+  clearTimeouts() {
+    try {
+      clearTimeout(timerId)
+    } catch (e) {
+    }
+    try {
+      clearTimeout(timerId2)
+    } catch (e) {
+    }
+  }
 
   componentDidMount() {
   }
@@ -1015,13 +1040,23 @@ class IFO extends React.Component {
     this.setState({customAddress: event.target.value, addressError: null})
   }
 
+  checkGas() {
+    if (!this.gasMonitoring && this.state.connected == 1) {
+      this.gasMonitoring = true
+      gasTimerId = setInterval(this.loadGas(), 100e3)
+    }
+  }
+
   render() {
 
     let self = this
 
-    // console.log(this.state)
+    if (!this.ifoStarted) {
+      this.ifoStarted = this.state.preStartBlock && this.state.lastBlock >= this.state.preStartBlock ? true : false
+      if (this.connected === 1) {
 
-    let ifoStarted = this.state.preStartBlock && this.state.lastBlock >= this.state.preStartBlock ? true : false
+      }
+    }
 
     let averageParticipation = 0
     let left = '-'
@@ -1035,7 +1070,7 @@ class IFO extends React.Component {
       averageParticipation = supply / this.state.totalParticipants
     }
 
-    if (ifoStarted) {
+    if (this.ifoStarted) {
       left = this.state.preEndBlock - this.state.lastBlock
       if (left < 0) {
         left = '-'
@@ -1067,7 +1102,7 @@ class IFO extends React.Component {
     } else if (ls('accepted')) {
 
       let notStartedYet = ''
-      if (!ifoStarted) {
+      if (!this.ifoStarted) {
         if (this.state.preStartBlock) {
           const blks = this.state.preStartBlock - this.state.lastBlock
           const mins = formatNumber(blks * 15 / 60)
@@ -1111,11 +1146,9 @@ class IFO extends React.Component {
         <div className="pt10">
           Set the maximum gas at 60,000 or whatever you wallet suggests.
         </div>
-        <div className="pt10">
-          To minimize the cost of the transaction, look at <a className="dark" href="https://ethgasstation.info"
-                                                              target="_blank">ETH Gas Station</a> to check the current
-          Gas Price Std and Gas Price SafeLow.
-        </div>
+        { this.ifoStarted && !this.state.ended ?
+        <div className="pt10">If you aren't under rush, consider that, according to <a className="dark" href="https://ethgasstation.info" target="_blank">ETH Gas Station</a>, the Gas Price SafeLow right now is {this.state.safeLow / 10} Gwei (transaction time ~{this.state.safeLowWait} minutes). This can change at any moment, be careful.
+        </div> : ''}
       </div>
 
     }
@@ -1235,7 +1268,7 @@ class IFO extends React.Component {
 
     let currentBalance
 
-    if (this.state.connected == 1 && ifoStarted) {
+    if (this.state.connected == 1 && this.ifoStarted) {
 
       let checkAnother = <div onClick={this.checkAnotherWallet} className="link pt16">Check another wallet</div>
 
@@ -1276,7 +1309,6 @@ class IFO extends React.Component {
     : <span>The data are updated every 60 seconds and cached. Please, don't refresh the page, it's useless. To have updates every 15 seconds, use an in-browser wallet, like <a
     href="https://metamask.io" target="_blank">Metamask</a>.</span>
 
-
     return (
     <div>
       <div className="cover pt22 pb16">
@@ -1286,7 +1318,7 @@ class IFO extends React.Component {
               <div className=" darkblue bord rounded ifoname">Initial Free Offering — First Round<br/>
 
                 <div
-                className="rounded lato status">{!this.state.network ? 'UNKNOWN STATUS (WRONG NETWORK)' : ifoStarted && !this.state.ended ? 'THE DISTRIBUTION IS ACTIVE' : this.state.ended ? 'THE DISTRIBUTION IS OVER' : 'THE DISTRIBUTION HASN\'T STARTED YET'}</div>
+                className="rounded lato status">{!this.state.network ? 'UNKNOWN STATUS (WRONG NETWORK)' : this.ifoStarted && !this.state.ended ? 'THE DISTRIBUTION IS ACTIVE' : this.state.ended ? 'THE DISTRIBUTION IS OVER' : 'THE DISTRIBUTION HASN\'T STARTED YET'}</div>
 
                 {currentBalance}
 
