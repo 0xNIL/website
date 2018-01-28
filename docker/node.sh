@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+docker stop 0xNIL-web-debug
+docker rm 0xNIL-web-debug
+
 docker stop 0xNIL-web
 docker rm 0xNIL-web
 
