@@ -7,5 +7,5 @@ source docker/.default.env && docker run -it --rm \
   -v $PWD:/usr/src/app \
   -v $PWD/log:/var/log/0xNIL \
   -e NODE_ENV=development \
-  -e VIRTUAL_HOST=0xnil.org.localhost \
+  -e VIRTUAL_HOST=0xnil.com.localhost \
   -w /usr/src/app node:6 npm run start
