@@ -7,7 +7,7 @@
     "lint": "eslint -c .eslintrc 'src/**/*.js' 'test/**/*.js'",
     "test": "export NODE_ENV=test && istanbul cover ./node_modules/.bin/_mocha test/unit/**/*.js test/unit/*.js",
     "posttest": "istanbul check-coverage --statements 85 --branches 85 --functions 85 --lines 85",
-    "build": "webpack && bin/post-build.sh"
+    "build": "bin/post-build.sh"
   },
   "dependencies": {
     "aws-sdk": "^2.110.0",
