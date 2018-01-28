@@ -1048,13 +1048,14 @@ class IFO extends React.Component {
   }
 
   formatRemainingTime(mins) {
+    mins = parseInt('' + mins, 10)
     if (mins < 60) {
       return `${mins} minutes`
     } else if (mins < 120) {
-      return `1 hour and ${mins-60} minutes`
+      return `1 hour and ${mins - 60} minutes`
     } else {
       let rest = mins % 60
-      return `${(mins - rest)/60} hours and ${rest} minutes`
+      return `${(mins - rest) / 60} hours and ${rest} minutes`
     }
   }
 
@@ -1120,7 +1121,8 @@ class IFO extends React.Component {
 
           notStartedYet =
           <div className="rounded darkblue">Your attention, please!<br/>The distribution is not started yet. It will
-            start in {blks} blocks, about {this.formatRemainingTime(mins)}. If you send anything before then, you will consume gas for
+            start in {blks} blocks, about {this.formatRemainingTime(mins)}. If you send anything before then, you will
+            consume gas for
             nothing.</div>
         } else {
           notStartedYet =
@@ -1157,8 +1159,12 @@ class IFO extends React.Component {
         <div className="pt10">
           Set the maximum gas at 60,000 or whatever you wallet suggests.
         </div>
-        { this.ifoStarted && !this.state.ended ?
-        <div className="pt10">If you aren't under rush, consider that, according to <a className="dark" href="https://ethgasstation.info" target="_blank">ETH Gas Station</a>, the Gas Price SafeLow right now is {this.state.safeLow / 10} Gwei (transaction time ~{this.state.safeLowWait} minutes). This can change at any moment, be careful.
+        {this.ifoStarted && !this.state.ended ?
+        <div className="pt10">If you aren't under rush, consider that, according to <a className="dark"
+                                                                                       href="https://ethgasstation.info"
+                                                                                       target="_blank">ETH Gas
+          Station</a>, the Gas Price SafeLow right now is {this.state.safeLow / 10} Gwei (transaction time
+          ~{this.state.safeLowWait} minutes). This can change at any moment, be careful.
         </div> : ''}
       </div>
 
