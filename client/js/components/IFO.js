@@ -1177,7 +1177,7 @@ class IFO extends React.Component {
             </div>
             <div>
 
-              I have read everything on the <a href="https://0xnil.org" target="_blank">home page of the official
+              I have read everything on the <a href="https://0xnil.com" target="_blank">home page of the official
               website</a>, I also have
               read the <a href="http://bit.ly/0xNIL1" target="_blank">intro to the project</a>, and I understand what
               this experiment is about.
