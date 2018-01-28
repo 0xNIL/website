@@ -1,9 +1,7 @@
 const ls = require('local-storage')
-const _ = require('lodash')
 import {formatNumber} from '../utils'
 
-import React from 'react'
-import * as Scroll from 'react-scroll'
+// import * as Scroll from 'react-scroll'
 import Stat from './Stat'
 
 
@@ -1009,7 +1007,7 @@ class IFO extends React.Component {
     this.setState({accepted: event.target.checked})
     ls('accepted', event.target.checked)
     if (event.target.checked) {
-      Scroll.animateScroll.scrollToTop()
+      $(window).scrollTop(0)
     }
   }
 
@@ -1046,6 +1044,17 @@ class IFO extends React.Component {
     if (!this.gasMonitoring && this.state.connected == 1) {
       this.gasMonitoring = true
       gasTimerId = setInterval(this.loadGas(), 100e3)
+    }
+  }
+
+  formatRemainingTime(mins) {
+    if (mins < 60) {
+      return `${mins} minutes`
+    } else if (mins < 120) {
+      return `1 hour and ${mins-60} minutes`
+    } else {
+      let rest = mins % 60
+      return `${(mins - rest)/60} hours and ${rest} minutes`
     }
   }
 
@@ -1107,11 +1116,11 @@ class IFO extends React.Component {
       if (!this.ifoStarted) {
         if (this.state.preStartBlock) {
           const blks = this.state.preStartBlock - this.state.lastBlock
-          const mins = formatNumber(blks * 15 / 60)
+          const mins = blks * 15 / 60
 
           notStartedYet =
           <div className="rounded darkblue">Your attention, please!<br/>The distribution is not started yet. It will
-            start in {blks} blocks, about {mins} minutes. If you send anything before then, you will consume gas for
+            start in {blks} blocks, about {this.formatRemainingTime(mins)}. If you send anything before then, you will consume gas for
             nothing.</div>
         } else {
           notStartedYet =
