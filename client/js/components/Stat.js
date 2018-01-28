@@ -1,4 +1,4 @@
-import React from 'react'
+// import React from 'react'
 import {formatNumber} from '../utils'
 
 class Stat extends React.Component {
