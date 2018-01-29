@@ -19,6 +19,18 @@ body {
 
 /*}*/
 
+
+.bgtiny {
+    font-size: 140%;
+    background: url(../img/tiny.png);
+    background-repeat: no-repeat;
+    background-size: 17px;
+    background-position-y: 7px;
+    padding-left: 20px;
+    text-align: center;
+    margin-left: 4px;
+}
+
 .logo {
     width: 100px !important;
     height: 100px !important;

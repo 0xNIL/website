@@ -1356,7 +1356,8 @@ class IFO extends React.Component {
             </div>
           </div>
           <div id="stats " className="row" style={{paddingTop: 16, paddingBottom: 16}}>
-            <Stat label="Token Supply" value={this.state.totalSupply}/>
+            <Stat label="Token Supply" value={this.state.totalSupply} extraClass="bgtiny"
+            />
             <Stat label="Participants" value={this.state.totalParticipants}/>
             <Stat label="AVG per wallet" value={averageParticipation}/>
             <Stat label="Starting block" value={this.state.preStartBlock} prefix="#"/>
