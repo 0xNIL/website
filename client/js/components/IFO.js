@@ -1161,7 +1161,7 @@ class IFO extends React.Component {
           If your wallet refuses to send 0 ETH, add the following data:<br/><b>0x7a0c396d</b>
         </div>
         <div className="pt10">
-          Set the gas limit at 80,000.
+          Set the gas limit at 120000.
         </div>
         {this.ifoStarted && !this.state.ended ?
         <div className="pt10">According to <a className="dark" href="https://ethgasstation.info" target="_blank">ETH Gas
