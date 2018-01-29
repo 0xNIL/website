@@ -1048,7 +1048,11 @@ class IFO extends React.Component {
   }
 
   formatRemainingTime(mins) {
-    mins = parseInt('' + mins, 10)
+    if (mins <= 60) {
+      mins = parseInt('' + mins, 10)
+      return `${mins} seconds`
+    }
+    mins = parseInt('' + (mins/60), 10)
     if (mins < 60) {
       return `${mins} minutes`
     } else if (mins < 120) {
@@ -1086,7 +1090,7 @@ class IFO extends React.Component {
       left = this.state.preEndBlock - this.state.lastBlock
       if (left < 0) {
         left = '-'
-      } else {
+      } else if (left < 1000){
         left++
       }
     }
@@ -1117,7 +1121,7 @@ class IFO extends React.Component {
       if (!this.ifoStarted) {
         if (this.state.preStartBlock) {
           const blks = this.state.preStartBlock - this.state.lastBlock
-          const mins = blks * 15 / 60
+          const mins = blks * 15
 
           notStartedYet =
           <div className="rounded darkblue">Your attention, please!<br/>The distribution is not started yet. It will
