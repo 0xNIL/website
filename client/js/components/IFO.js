@@ -947,13 +947,13 @@ class IFO extends React.Component {
     this.state.IFOInstance.tokenSupply((err, result) => {
       if (result != null) {
         this.setState({
-          tokenSupply: result.c[0]
+          tokenSupply: parseInt(result.valueOf().replace(/0{9}$/,''), 10)
         })
       }
     })
     this.state.NILInstance.totalSupply((err, result) => {
       if (result != null) {
-        let ts = result.c[0] / 1e9
+        let ts = parseInt(result.valueOf().replace(/0{9}$/,''), 10)
         this.setState({
           totalSupply: ts
         })

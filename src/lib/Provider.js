@@ -819,7 +819,7 @@ class Provider {
     }
 
     db.get('cached-stats', (err, val) => {
-      if (val) {
+      if (false && val) {
         try {
           val = JSON.parse(val)
           if (Date.now() - val.now < 3e4) {
@@ -843,8 +843,9 @@ class Provider {
       if (!usingMetamask) {
 
         this.NILInstance.totalSupply((err, result) => {
+
           if (result != null) {
-            this.data.totalSupply = result.c[0] / 1e9
+            this.data.totalSupply = parseInt(result.valueOf().replace(/0{9}$/,''), 10)
           }
           gets++
           response()
