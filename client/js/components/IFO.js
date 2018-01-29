@@ -1168,7 +1168,7 @@ class IFO extends React.Component {
         </div>
         {this.ifoStarted && !this.state.ended ?
         <div className="pt10">According to <a className="dark" href="https://ethgasstation.info" target="_blank">ETH Gas
-          Station</a>, the Gas Price SafeLow right now is {this.state.safeLow / 10} Gwei (confirmation time: ~{this.state.safeLowWait} minutes), while the Gas Price Standard is {this.state.average / 10} Gwei (confirmation time: ~{this.state.avgWait} minutes).
+          Station</a>, right now, the Gas Price SafeLow is {this.state.safeLow / 10} Gwei (confirmation time: ~{this.state.safeLowWait} minutes), while the Gas Price Standard is {this.state.average / 10} Gwei (confirmation time: ~{this.state.avgWait} minutes).
         </div> : ''}
         <div className="pt10">
           <div style={{height:1,backgroundColor: '#7FA4C3', margin: '8px 0'}}></div>
