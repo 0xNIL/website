@@ -1143,12 +1143,8 @@ class IFO extends React.Component {
         <div>after the IFO has started and before it ends.
         </div>
         <div className="pt10">
-          Send 0 ether only from wallets that can receive ERC20 tokens (like <a className="dark"
-                                                                                href="https://myetherwallet.com"
-                                                                                target="_blank">MyEtherWallet</a>, <a
-        className="dark" href="https://metamask.io" target="_blank">Metamask</a>, <a className="dark"
-                                                                                     href="https://parity.io"
-                                                                                     target="_blank">Parity</a>, etc.).
+          Send 0 ether only from wallets that can receive ERC20 tokens like <a className="dark" href="https://myetherwallet.com" target="_blank">MyEtherWallet</a> and <a
+        className="dark" href="https://metamask.io" target="_blank">Metamask</a>.
         </div>
         <div className="pt10">To receive more NIL, you can repeat the operation, until you reach the cap of 30,000 NIL
           per wallet.
@@ -1157,15 +1153,18 @@ class IFO extends React.Component {
           If your wallet refuses to send 0 ETH, add the following data:<br/><b>0x7a0c396d</b>
         </div>
         <div className="pt10">
-          Set the maximum gas at 60,000 or whatever you wallet suggests.
+          Set the gas limit at 80,000 or whatever you wallet suggests.
         </div>
         {this.ifoStarted && !this.state.ended ?
-        <div className="pt10">If you aren't under rush, consider that, according to <a className="dark"
-                                                                                       href="https://ethgasstation.info"
-                                                                                       target="_blank">ETH Gas
-          Station</a>, the Gas Price SafeLow right now is {this.state.safeLow / 10} Gwei (transaction time
-          ~{this.state.safeLowWait} minutes). This can change at any moment, be careful.
+        <div className="pt10">According to <a className="dark" href="https://ethgasstation.info" target="_blank">ETH Gas
+          Station</a>, the Gas Price SafeLow right now is {this.state.safeLow / 10} Gwei (confirmation time: ~{this.state.safeLowWait} minutes).
         </div> : ''}
+        <div className="pt10">
+          <div style={{height:1,backgroundColor: '#7FA4C3', margin: '8px 0'}}></div>
+          To see the NILs in your wallet, add a custom token:<br/>
+          Address: <b>0x7DEb93314090837fb33bB9a30D62C459BDFdc661</b><br/>
+          Token Symbol: <b>NIL</b> &nbsp; &nbsp; Decimals: <b>9</b>
+        </div>
       </div>
 
     }
@@ -1349,8 +1348,8 @@ class IFO extends React.Component {
             <Stat label="Token Supply" value={this.state.totalSupply}/>
             <Stat label="Participants" value={this.state.totalParticipants}/>
             <Stat label="AVG per wallet" value={averageParticipation}/>
-            <Stat label="Starting block" value={this.state.preStartBlock}/>
-            <Stat label="Ending block" value={this.state.preEndBlock}/>
+            <Stat label="Starting block" value={this.state.preStartBlock} prefix="#"/>
+            <Stat label="Ending block" value={this.state.preEndBlock} prefix="#"/>
             <Stat label="Blocks before end" value={left}/>
           </div>
           {this.state.refreshedAfter > 0 && this.state.refreshedAfter <= 60e3

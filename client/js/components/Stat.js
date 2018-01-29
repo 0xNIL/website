@@ -9,7 +9,8 @@ class Stat extends React.Component {
     <div className="column">
       <div className="rounded bord bgwhite centered lato">
         <div>{this.props.label}</div>
-        <div className="b" style={{fontSize: '140%'}}>{formatNumber(this.props.value)}</div>
+        <div className="b"
+             style={{fontSize: '140%'}}>{this.props.prefix ? this.props.prefix + ' ' : ''}{formatNumber(this.props.value)}</div>
       </div>
     </div>
     )
