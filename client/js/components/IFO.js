@@ -900,8 +900,11 @@ class IFO extends React.Component {
       this.setState({
         safeLow: stats.safeLow,
         block_time: stats.block_time,
-        safeLowWait: stats.safeLowWait
-      })
+        safeLowWait: stats.safeLowWait,
+        average: stats.average,
+        avgWait: stats.avgWait
+
+    })
 
       if (this.state.ended) {
         this.clearTimeouts()
@@ -940,7 +943,7 @@ class IFO extends React.Component {
     this.state.IFOInstance.totalParticipants((err, result) => {
       if (result != null) {
         this.setState({
-          totalParticipants: result.c[0]
+          totalParticipants: result.valueOf()
         })
       }
     })
@@ -978,14 +981,14 @@ class IFO extends React.Component {
       this.state.IFOInstance.preStartBlock((err, result) => {
         if (result != null) {
           this.setState({
-            preStartBlock: result.c[0]
+            preStartBlock: result.valueOf()
           })
         }
       })
       this.state.IFOInstance.preEndBlock((err, result) => {
         if (result != null) {
           this.setState({
-            preEndBlock: result.c[0]
+            preEndBlock: result.valueOf()
           })
         }
       })
@@ -995,7 +998,7 @@ class IFO extends React.Component {
       this.state.NILInstance.balanceOf(web3.eth.defaultAccount, (err, result) => {
         if (result != null) {
           this.setState({
-            currentBalance: result.c[0] / 1e9,
+            currentBalance: result.valueOf() / 1e9,
             accountAddress: web3.eth.defaultAccount
           })
         }
@@ -1021,7 +1024,7 @@ class IFO extends React.Component {
         this.state.NILInstance.balanceOf(this.state.customAddress, (err, result) => {
           if (result != null) {
             this.setState({
-              currentBalance: result.c[0] / 1e9,
+              currentBalance: result.valueOf() / 1e9,
               accountAddress: this.state.customAddress,
               checkingAnother: false,
               customAddress: null
@@ -1165,7 +1168,7 @@ class IFO extends React.Component {
         </div>
         {this.ifoStarted && !this.state.ended ?
         <div className="pt10">According to <a className="dark" href="https://ethgasstation.info" target="_blank">ETH Gas
-          Station</a>, the Gas Price SafeLow right now is {this.state.safeLow / 10} Gwei (confirmation time: ~{this.state.safeLowWait} minutes).
+          Station</a>, the Gas Price SafeLow right now is {this.state.safeLow / 10} Gwei (confirmation time: ~{this.state.safeLowWait} minutes), while the Gas Price Standard (suggested) is {this.state.average / 10} Gwei (confirmation time: ~{this.state.avgWait} minutes).
         </div> : ''}
         <div className="pt10">
           <div style={{height:1,backgroundColor: '#7FA4C3', margin: '8px 0'}}></div>

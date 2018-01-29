@@ -853,14 +853,14 @@ class Provider {
 
         this.IFOInstance.totalParticipants((err, result) => {
           if (result != null) {
-            this.data.totalParticipants = result.c[0]
+            this.data.totalParticipants = result.valueOf()
           }
           gets++
           response()
         })
         this.IFOInstance.tokenSupply((err, result) => {
           if (result != null) {
-            this.data.tokenSupply = result.c[0]
+            this.data.tokenSupply = result.valueOf()
           }
           gets++
           response()
@@ -876,7 +876,7 @@ class Provider {
         if (!this.preStartBlock) {
           this.IFOInstance.preStartBlock((err, result) => {
             if (result != null) {
-              this.data.preStartBlock = result.c[0]
+              this.data.preStartBlock = result.valueOf()
             }
             gets++
             response()
@@ -888,7 +888,7 @@ class Provider {
         if (!this.preEndBlock) {
           this.IFOInstance.preEndBlock((err, result) => {
             if (result != null) {
-              this.data.preEndBlock = result.c[0]
+              this.data.preEndBlock = result.valueOf()
             }
             gets++
             response()
@@ -912,10 +912,9 @@ class Provider {
           this.data.safeLow = res2.body.safeLow
           this.data.block_time = res2.body.block_time
           this.data.safeLowWait = res2.body.safeLowWait
+          this.data.average = res2.body.average
+          this.data.avgWait = res2.body.avgWait
         } catch (e) {
-          this.data.safeLow = 0
-          this.data.block_time = 0
-          this.data.safeLowWait = 0
         }
         response()
       })
