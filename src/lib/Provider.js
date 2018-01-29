@@ -4,7 +4,7 @@ const Web3 = require('web3')
 const request = require('superagent')
 const gasUrl = 'https://ethgasstation.info/json/ethgasAPI.json'
 
-const web3 = new Web3(new Web3.providers.HttpProvider('https://rinkeby.infura.io/' + process.env.INFURA_ID))
+const web3 = new Web3(new Web3.providers.HttpProvider('https://mainnet.infura.io/' + process.env.INFURA_ID))
 
 const IFOabi = [
   {
@@ -801,6 +801,7 @@ class Provider {
   }
 
   stats(res, network, usingMetamask) {
+
 
     let gets = 0
 

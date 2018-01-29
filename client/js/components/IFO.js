@@ -870,6 +870,7 @@ class IFO extends React.Component {
   }
 
   fetchFromApi() {
+    console.log('Fetching data')
     let self = this
     return fetch(window.location.origin + '/api/stats?random=' + Math.random(), {
       method: 'POST',
@@ -885,6 +886,7 @@ class IFO extends React.Component {
     .then((response) => response.json())
     .then((responseJson) => {
       const stats = responseJson.stats
+
       if (this.state.connected == 2) {
         this.setState({
           totalSupply: stats.totalSupply,
@@ -932,6 +934,8 @@ class IFO extends React.Component {
   }
 
   updateState() {
+
+    console.log('Updading states')
 
     this.state.IFOInstance.totalParticipants((err, result) => {
       if (result != null) {
