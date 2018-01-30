@@ -1164,7 +1164,7 @@ class IFO extends React.Component {
           If your wallet refuses to send 0 ETH, add the following data:<br/><b>0x7a0c396d</b>
         </div>
         <div className="pt10">
-          Set the gas limit at 120000.
+          Set the gas limit to what your wallet suggests.
         </div>
         {this.ifoStarted && !this.state.ended ?
         <div className="pt10">According to <a className="dark" href="https://ethgasstation.info" target="_blank">ETH Gas
@@ -1269,8 +1269,8 @@ class IFO extends React.Component {
             </div>
             <div>
               Each jurisdiction has separate rules concerning taxation of crypto currency transactions. While the price
-              is set at 0 ETH for the NIL tokens with a 0 value, we are not and have not provided any opinion on the tax
-              consequences of such an exchange. Please consult your tax advisor.
+              is set at 0 ETH for the NIL tokens with a 0 value, 0xNIL has not provided any opinion on the tax
+              consequences of such an exchange. I'll consult my tax advisor.
             </div>
             <div>
               <input type="checkbox" onChange={this.acceptTac}
