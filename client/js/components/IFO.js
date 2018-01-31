@@ -957,10 +957,6 @@ class IFO extends React.Component {
     this.state.NILInstance.totalSupply((err, result) => {
       if (result != null) {
         let ts = parseInt(result.valueOf().replace(/0{9}$/,''), 10)
-        if (/localhost/.test(window.location.origin) && ts > 9900000 && ts < 10000000 && typeof suonato == 'undefined') {
-          $('#alertsound')[0].play()
-          suonato = true
-        }
         this.setState({
           totalSupply: ts
         })
