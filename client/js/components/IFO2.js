@@ -840,8 +840,8 @@ class IFO extends React.Component {
         if (this.state.network) {
           this.updateState()
           this.state.refreshedAfter = 15e3
-          // timerId = setInterval(this.updateState, 15e3)
-          // this.runServerApi()
+          timerId = setInterval(this.updateState, 15e3)
+          this.runServerApi()
         }
       })
 
@@ -860,9 +860,9 @@ class IFO extends React.Component {
     }
     this.fetchFromApi()
     let self = this
-    // timerId2 = setInterval(function () {
-    //   self.fetchFromApi()
-    // }, 60e3)
+    timerId2 = setInterval(function () {
+      self.fetchFromApi()
+    }, 60e3)
     if (this.state.connected != 1) {
       this.state.refreshedAfter = 60e3
       this.state.connected = 2
@@ -1011,7 +1011,6 @@ class IFO extends React.Component {
   }
 
   acceptTac(event) {
-    return
     this.setState({accepted: event.target.checked})
     ls('accepted', event.target.checked)
     if (event.target.checked) {
@@ -1351,13 +1350,14 @@ class IFO extends React.Component {
               <div className=" darkblue bord rounded ifoname">Initial Free Offering — First Round<br/>
 
                 <div
-                className="rounded lato status">THE DISTRIBUTION IS OVER</div>
+                className="rounded lato status">{!this.state.network ? 'UNKNOWN STATUS (WRONG NETWORK)' : this.ifoStarted && !this.state.ended ? 'THE DISTRIBUTION IS ACTIVE' : this.state.ended ? 'THE DISTRIBUTION IS OVER' : 'THE DISTRIBUTION HASN\'T STARTED YET'}</div>
+                {currentBalance}
               </div>
 
             </div>
             <div className="column lato">
 
-
+              {instructions}
             </div>
           </div>
           <div id="stats " className="row" style={{paddingTop: 16, paddingBottom: 16}}>
