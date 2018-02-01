@@ -1371,9 +1371,7 @@ class IFO extends React.Component {
           {this.state.refreshedAfter > 0 && this.state.refreshedAfter <= 60e3
           ? <div className="row">
             <div className="column lato" style={{color: 'white', fontSize: '1.3rem', textAlign: 'center'}}>
-              <div className="rounded darkblue">
-                {infoUpdate}
-              </div>
+
             </div>
           </div>
           : ''}
