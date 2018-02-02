@@ -10,6 +10,7 @@
     "build": "webpack && bin/post-build.sh"
   },
   "dependencies": {
+    "append-stream": "^1.2.2",
     "aws-sdk": "^2.110.0",
     "bluebird": "^3.5.0",
     "body-parser": "~1.17.1",
@@ -22,7 +23,7 @@
     "expect": "^1.20.1",
     "express": "~4.15.2",
     "fs-extra": "^4.0.1",
-    "install": "^0.10.1",
+    "install": "^0.10.4",
     "local-storage": "^1.4.2",
     "lodash": "^4.17.4",
     "log": "^1.4.0",
@@ -30,7 +31,7 @@
     "morgan": "~1.8.1",
     "mustache": "^2.3.0",
     "node-libs-browser": "^1.0.0",
-    "npm": "^5.4.0",
+    "npm": "^5.6.0",
     "pug": "^2.0.0-rc.3",
     "react": "^15.1.0",
     "react-addons-test-utils": "^15.1.0",
