@@ -1,8 +1,10 @@
+const tweedentity = require('tweedentity')
+const sigUtil = require('eth-sig-util')
 const db = require('./db').redis
 const _ = require('lodash')
 const Web3 = require('web3')
 const request = require('superagent')
-const gasUrl = 'https://ethgasstation.info/json/ethgasAPI.json'
+const gasUrl = 'f'
 
 const web3 = new Web3(new Web3.providers.HttpProvider('https://mainnet.infura.io/' + process.env.INFURA_ID))
 
@@ -798,6 +800,8 @@ class Provider {
       // safeLowWait: 0
     }
 
+    this.tServer = tweedentity.Server
+
   }
 
   stats(res, network, usingMetamask) {
@@ -845,7 +849,7 @@ class Provider {
         this.NILInstance.totalSupply((err, result) => {
 
           if (result != null) {
-            this.data.totalSupply = parseInt(result.valueOf().replace(/0{9}$/,''), 10)
+            this.data.totalSupply = parseInt(result.valueOf().replace(/0{9}$/, ''), 10)
           }
           gets++
           response()
@@ -902,7 +906,6 @@ class Provider {
       }
 
 
-
       request
       .get(gasUrl)
       .set('Accept', 'application/json')
@@ -923,6 +926,110 @@ class Provider {
       })
 
     })
+
+  }
+
+  getDataByTID(webApp, userId) {
+    const key = `${tweedentity.config.appIds[webApp]}/${userId}`
+    return db.getAsync(key)
+    .then(user => {
+      if (user) {
+        return Promise.resolve({
+          result: JSON.parse(user)
+        })
+      } else {
+        return this.tServer.getDataById(webApp, userId)
+        .then(result => {
+          db.set(key, JSON.stringify(result), 'EX', 3600)
+          return Promise.resolve({
+            result
+          })
+        })
+      }
+    })
+  }
+
+  isValidAddress(address) {
+    return /^0x[0-9a-fA-F]{40}$/.test(address)
+  }
+
+  whitelist(identityWallet, participantWallet) {
+    return db.getAsync('whitelistClosed')
+    .then(result => {
+      if (result) {
+        return Promise.resolve({success: false, error: 'The whitelisting has been closed'})
+      } else {
+        return db.getAsync(`whitelist:${identityWallet}`)
+      }
+    })
+    .then(whitelisted => {
+      if (whitelisted === participantWallet) {
+        return Promise.resolve({success: false, error: 'The address has been already whitelisted'})
+      } else {
+        return db.getAsync(`whitelisted:${participantWallet}`)
+        .then(whitelister => {
+          if (!whitelister) {
+            return Promise.all([
+              db.setAsync(`whitelist:${identityWallet}`, participantWallet),
+              db.setAsync(`whitelisted:${participantWallet}`, identityWallet),
+              whitelisted ? db.delAsync(`whitelisted:${whitelisted}`) : null
+            ])
+            .then(() => {
+              return Promise.resolve({success: true})
+            })
+          } else {
+            return Promise.resolve({success: false, error: 'The address has been whitelisted by another tweedentity'})
+          }
+        })
+      }
+    })
+  }
+
+  whitelisted(identityWallet) {
+    return Promise.all([
+      db.getAsync(`whitelist:${identityWallet}`),
+      db.getAsync(`confirmed:${identityWallet}`)
+    ])
+    .then(([whitelisted, confirmed]) => {
+      if (whitelisted) {
+        return Promise.resolve({
+          success: true,
+          confirmed
+        })
+      } else {
+        return Promise.resolve({success: false})
+      }
+    })
+  }
+
+  equal(a, b) {
+    return a.toLowerCase() === b.toLowerCase()
+  }
+
+  login(identityWallet, token, signature) {
+
+    if (!identityWallet || !token || !signature) {
+      return Promise.resolve({success: false, error: 'Wrong parameters'})
+    }
+    const recovered = sigUtil.recoverTypedSignature({
+      data: [
+        {
+          type: 'string',
+          name: 'tweedentity',
+          value: token
+        }
+      ],
+      sig: signature
+    })
+    if (this.equal(recovered, identityWallet)) {
+      const authToken = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 12)
+      return db.setAsync(`authToken:${identityWallet}`, authToken)
+      .then(() => {
+        return Promise.resolve({success: true, authToken})
+      })
+    } else {
+      return Promise.resolve({success: false, error: 'Wrong signature'})
+    }
 
   }
 

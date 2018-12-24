@@ -36,20 +36,15 @@ app.get('/ifo-first-round', function (req, res, next) {
   res.send(fs.readFileSync(path.resolve(__dirname, '../static/ifo-first-round.html'), 'utf-8'))
 })
 
-app.get('/debug-index.html', function (req, res, next) {
-  if (app.get('env') === 'development') {
-    res.contentType('html')
-    res.send(fs.readFileSync(path.resolve(__dirname, '../static/debug-index.html'), 'utf-8'))
-  } else res.sendStatus(403)
+app.get('/whitelist', function (req, res, next) {
+  res.contentType('html')
+  res.send(fs.readFileSync(path.resolve(__dirname, '../static/whitelist.html'), 'utf-8'))
 })
 
-app.get('/debug-ifo-first-round.html', function (req, res, next) {
-  if (app.get('env') === 'development') {
-    res.contentType('html')
-    res.send(fs.readFileSync(path.resolve(__dirname, '../static/debug-ifo-first-round.html'), 'utf-8'))
-  } else res.sendStatus(403)
-})
 
+app.get('/debug*', function (req, res, next) {
+  res.sendStatus(403)
+})
 
 app.use(express.static(path.resolve(__dirname, '../static')))
 

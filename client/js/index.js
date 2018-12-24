@@ -1,7 +1,5 @@
-// import 'babel-polyfill'
-// import React from 'react'
-// import ReactDOM from "react-dom"
 import IFO from './components/IFO'
+import Whitelist from './components/Whitelist'
 import IFOButton from './components/IFOButton'
 
 if (document.getElementById('IFO')) {
@@ -9,20 +7,24 @@ if (document.getElementById('IFO')) {
   <IFO/>,
   document.getElementById('IFO')
   )
-}
-
-if (document.getElementById('IFOButton0')) {
+} else if (document.getElementById('Whitelist')) {
   ReactDOM.render(
-  <IFOButton value="Participate to the first round of the Initial Free Offering"
-             mValue="Participate to the First Round"/>,
-  document.getElementById('IFOButton0')
+  <Whitelist/>,
+  document.getElementById('Whitelist')
   )
-}
-
-if (document.getElementById('IFOButton')) {
-  ReactDOM.render(
-  <IFOButton value="Participate to the First Round"
-             mValue="Participate to the First Round"/>,
-  document.getElementById('IFOButton')
-  )
+} else {
+  if (document.getElementById('IFOButton0')) {
+    ReactDOM.render(
+    <IFOButton value="Whitelist your wallet for the Second Round of the IFO"
+               mValue="Whitelist your wallet"/>,
+    document.getElementById('IFOButton0')
+    )
+  }
+  if (document.getElementById('IFOButton')) {
+    ReactDOM.render(
+    <IFOButton value="Whitelist your wallet for the Second Round of the IFO"
+               mValue="Whitelist your wallet"/>,
+    document.getElementById('IFOButton')
+    )
+  }
 }
