@@ -23,42 +23,45 @@
     <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css"/>
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Rajdhani|Lato"/>
     <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css"/>
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"/>
     <link rel="stylesheet" href="/css/style.css"/>
     <link rel="icon" type="image/png" href="/img/favicon.png"/>
     <script type="text/javascript" src="/js/pre-body.js" id="prebody" integrity=""></script>
 </head>
-<body class="darkblue">
+<body>
 <div class="ttop"></div>
 <div style="z-index:1;">
-
-    <div id="IFO"></div>
+    <div class="cover pt22 pb16" style="border-bottom: 1px solid navy">
+        <div class="container">
+            <div class="row">
+                <div class="column pt16"><a href="/"><img src="/img/logoH.png" style="width: 300px; border: 0"/></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="Whitelist" class="lato"></div>
 </div>
 
-
-
-<div>
+<div class="footerContainer">
     <div class="container padded">
 
         <div class="row">
             <div class="column lato smaller centered">
-                <a target="_blank" href="https://medium.com/0xnil"><i class="fa fa-medium"></i> Blog</a>
+                (c) 2018, <a target="_blank" href="https://oxnil.com">0xNIL Project</a>
+                <span class="spaced2">  </span>|<span class="spaced2">  </span> <a target="_blank"
+                                                                                   href="https://medium.com/0xnil"><i
+                    class="fab fa-medium"></i> Blog</a>
                 <span class="spaced2">  </span><a target="_blank" href="https://twitter.com/0xNIL"><i
-                    class="fa fa-twitter"></i> Twitter</a>
+                    class="fab fa-twitter"></i> Twitter</a>
                 <span class="spaced2">  </span><a target="_blank" href="https://t.me/news_0xNIL"><i
-                    class="fa fa-telegram"></i> Telegram</a>
+                    class="fab fa-telegram"></i> Telegram</a>
                 <span class="spaced2"> </span> <a target="_blank" href="https://github.com/0xNIL"><i
-                    class="fa fa-github"></i> Github</a>
+                    class="fab fa-github"></i> Github</a>
                 <span class="spaced2"> </span> <a href="mailto:info@0xnil.com"><i
                     class="fa fa-envelope"></i> Email</a>
             </div>
         </div>
 
-        <div class="row padded64">
-
-            <div class="column centered smaller2 lato">(c) 2017, 0xNIL Project</div>
-
-        </div>
     </div>
 
 </div>
@@ -76,11 +79,16 @@
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-121697216-1"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  if (!/localhost/.test(location.host)) {
+    window.dataLayer = window.dataLayer || []
 
-  gtag('config', 'UA-121697216-1');
+    function gtag() {
+      dataLayer.push(arguments)
+    }
+
+    gtag('js', new Date())
+    gtag('config', 'UA-121697216-1')
+  }
 </script>
 </body>
 </html>

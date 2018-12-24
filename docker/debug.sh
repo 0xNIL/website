@@ -15,5 +15,5 @@ source docker/.default.env && docker run -it \
   -e VIRTUAL_HOST=oxnil.org,www.oxnil.org,0xnil.org,www.0xnil.org,oxnil.com,www.oxnil.com \
   -e LETSENCRYPT_HOST=0xnil.com,www.0xnil.com \
   -e LETSENCRYPT_EMAIL=info@0xnil.com \
-  -w /usr/src/app node:6 npm run start
+  -w /usr/src/app node:carbon npm run start
 

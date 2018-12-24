@@ -11,7 +11,7 @@ class IFOButton extends React.Component {
   }
 
   startIFO() {
-    window.location = window.location.origin + '/ifo-first-round'
+    window.location = window.location.origin + '/whitelist'
   }
 
   render() {

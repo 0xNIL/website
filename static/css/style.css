@@ -582,3 +582,27 @@ a.dark {
     background-image: url(../img/cover.png);
     background-size: cover;
 }
+
+.alert {
+    border-radius: 12px;
+    border: 1px solid crimson;
+    background-color: #fff8f8;
+    color: darkred;
+    padding: 12px 24px;
+    text-align: center;
+}
+
+.mb0 {
+    margin-bottom: 0px;
+}
+
+.footerContainer {
+    margin-top: 24px;
+    border-top: 1px solid #eee;
+    padding-top: 12px;
+}
+
+button {
+    background-color: #0A234B !important;
+    border-color: #00b0d0 !important;
+}

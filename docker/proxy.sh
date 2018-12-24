@@ -11,6 +11,10 @@ docker rm nginx-gen
 docker stop nginx-letsencrypt
 docker rm nginx-letsencrypt
 
+docker rmi nginx
+docker rmi jwilder/docker-gen
+docker rmi jrcs/letsencrypt-nginx-proxy-companion
+
 docker run -d \
   --name nginx \
   --restart unless-stopped \
