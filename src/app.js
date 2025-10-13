@@ -31,22 +31,11 @@ app.use(morgan('combined', {stream: accessLogStream}))
 
 app.use(cookieParser())
 
-app.get('/ifo-first-round', function (req, res, next) {
-  res.contentType('html')
-  res.send(fs.readFileSync(path.resolve(__dirname, '../static/ifo-first-round.html'), 'utf-8'))
-})
-
-app.get('/whitelist', function (req, res, next) {
-  res.contentType('html')
-  res.send(fs.readFileSync(path.resolve(__dirname, '../static/whitelist.html'), 'utf-8'))
-})
-
-
-app.get('/debug*', function (req, res, next) {
-  res.sendStatus(403)
-})
-
-app.use(express.static(path.resolve(__dirname, '../static')))
+// Serve static files from dist in production, static in development
+const staticDir = process.env.NODE_ENV === 'production' 
+  ? path.resolve(__dirname, '../dist')
+  : path.resolve(__dirname, '../dist')
+app.use(express.static(staticDir))
 
 // app.use('/', index)
 app.use('/api', api)
