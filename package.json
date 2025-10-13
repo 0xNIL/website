@@ -2,13 +2,14 @@
   "name": "0xNIL-web",
   "version": "0.0.0",
   "private": true,
+  "packageManager": "pnpm",
   "scripts": {
-    "start": "node .",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
     "lint": "eslint -c .eslintrc 'src/**/*.js' 'test/**/*.js'",
     "test": "export NODE_ENV=test && istanbul cover ./node_modules/.bin/_mocha test/unit/**/*.js test/unit/*.js",
-    "posttest": "istanbul check-coverage --statements 85 --branches 85 --functions 85 --lines 85",
-    "build": "webpack && bin/post-build.sh",
-    "local": "npm run build && docker/dev.sh"
+    "posttest": "istanbul check-coverage --statements 85 --branches 85 --functions 85 --lines 85"
   },
   "dependencies": {
     "append-stream": "^1.2.2",
@@ -50,6 +51,7 @@
     "web3": "^0.20.4"
   },
   "devDependencies": {
+    "@vitejs/plugin-react": "^5.0.4",
     "babel-core": "^6.24.1",
     "babel-eslint": "^7.2.3",
     "babel-loader": "^7.0.0",
@@ -63,12 +65,14 @@
     "css-loader": "^0.28.0",
     "eslint": "^3.19.0",
     "eslint-plugin-react": "^6.10.3",
+    "gh-pages": "^6.3.0",
     "istanbul": "^0.4.5",
     "mocha": "^5.2.0",
     "mocha-lcov-reporter": "^1.3.0",
     "react-transform-hmr": "^1.0.4",
     "sinon": "^2.4.1",
     "supertest": "^3.0.0",
+    "vite": "^7.1.9",
     "webpack": "^2.4.1",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-dev-server": "^3.1.5",

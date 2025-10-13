@@ -16,9 +16,6 @@ coverage
 *.lock
 *.env
 
-static/index.html
-static/ifo-first-round.html
-static/ifo-second-round.html
-static/whitelist.html
-static/js/bundle.min.js
+# Vite build output
+/dist
 
